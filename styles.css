@@ -12,7 +12,8 @@ button {
     align-items: flex-start;
     background: #4e44ce;
     border-radius: 6px;
-  }
+    margin: 10px
+    }
   
   button:hover {
     background: #423aa9;
