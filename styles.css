@@ -12,7 +12,8 @@ button {
     align-items: flex-start;
     background: #4e44ce;
     border-radius: 6px;
-    margin: 10px
+    margin: 10px;
+    box-shadow: var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow);
     }
   
   button:hover {

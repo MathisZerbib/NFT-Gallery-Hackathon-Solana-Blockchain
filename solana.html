@@ -26,88 +26,104 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript">
-(async () => {
-        const getProvider = () => {
-            if ("solana" in window) {
-                const provider = window.solana;
-                if (provider.isPhantom) {
-                    return provider;
+        (async () => {
+
+            const getProvider = () => {
+                if ("solana" in window) {
+                    const provider = window.solana;
+                    if (provider.isPhantom) {
+                        return provider;
+                    }
                 }
-            }
-            window.open("https://phantom.app/", "_blank");
-        };
+                window.open("https://phantom.app/", "_blank");
+            };
+           
 
-        const isPhantomInstalled = window.solana && window.solana.isPhantom;
-        // const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
-        const connectButton = document.querySelector('.connectButton');
-        const disconnectButton = document.querySelector('.disconnectButton');
-        const showAccount = document.querySelector('.showAccount');
-        const sendSolButton = document.querySelector('.sendSolButton');
-        const walletInfoButton = document.querySelector('.walletInfoButton');
-        const signMessageButton = document.querySelector('.signMessageButton');
-
-        const recentBlockHash = async () => {
+            const isPhantomInstalled = window.solana && window.solana.isPhantom;
+            // Solflare Provider replace Phantom
+            // const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
+            const connectButton = document.querySelector('.connectButton');
+            const disconnectButton = document.querySelector('.disconnectButton');
+            const showAccount = document.querySelector('.showAccount');
+            const sendSolButton = document.querySelector('.sendSolButton');
+            const walletInfoButton = document.querySelector('.walletInfoButton');
+            const signMessageButton = document.querySelector('.signMessageButton');
             const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
-            const recentBlock = await connection.getRecentBlockhash();
-            console.log("~~~~~~~~~~~~~~~~~NEW BLOCK~~~~~~~~~~~~\n", recentBlock.blockhash);
-            // const keyPair = solanaWeb3.Keypair.generate();
 
-            // console.log("Public Key:", keyPair.publicKey.toString());
-            // console.log("Secret Key:", keyPair.secretKey)
-            return recentBlock.blockhash
-        };
-        connectButton.addEventListener('click', () => {
-            window.solana.connect();
-            console.log(window.solana);
-            window.solana.on("connect", () => {
-                console.log("connected!")
-                showAccount.innerHTML = window.solana.publicKey.toString();
+            document.addEventListener("DOMContentLoaded", function(event) {
+                window.solana.connect()
+                window.solana.on("connect", () => {
+                    console.log("connected!")
+                    showAccount.innerHTML = window.solana.publicKey.toString();
+                });
             });
-        });
+
+            
+            connectButton.addEventListener('click', () => {
+                window.solana.connect();
+                console.log(window.solana);
+                window.solana.on("connect", () => {
+                    console.log("connected!")
+                    showAccount.innerHTML = window.solana.publicKey.toString();
+                });
+            });
 
 
-        disconnectButton.addEventListener('click', () => {
-            window.solana.disconnect();
-            window.solana.on('disconnect', () => console.log("disconnected!"))
-            showAccount.innerHTML = "Disconnected"
-        });
-        sendSolButton.addEventListener('click', () => {
-            sendSol();
-        });
-        walletInfoButton.addEventListener('click', () => {
+            disconnectButton.addEventListener('click', () => {
+                window.solana.disconnect();
+                window.solana.on('disconnect', () => console.log("disconnected!"))
+                showAccount.innerHTML = "Disconnected"
+            });
+            sendSolButton.addEventListener('click', () => {
+                sendSol();
+            });
+            walletInfoButton.addEventListener('click', () => {
 
-            console.log(window.solana.publicKey, // wallet's publicKey
-                window.solana.connected, // true or false
-                window.solana.network) // mainnet-beta or testnet)
-        });
-        signMessageButton.addEventListener('click', () => {
-            singMessage();
+                console.log(window.solana.publicKey, // wallet's publicKey
+                    window.solana.connected, // true or false
+                    window.solana.network) // mainnet-beta or testnet)
+            });
+            signMessageButton.addEventListener('click', () => {
+                singMessage();
 
-        });
+            });
 
-        async function singMessage() {
-            const message = `To avoid digital dognappers,
-    sign below to authenticate with Nft Galllery`;
-            const encodedMessage = new TextEncoder().encode(message);
-            const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
-        };
+            async function singMessage() {
+                const message = `To avoid digital dognappers, sign below to authenticate with Nft Galllery`;
+                const encodedMessage = new TextEncoder().encode(message);
+                const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
+            };
 
-        async function sendSol() {
-            const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
-            const transaction = new solanaWeb3.Transaction().add(
-                solanaWeb3.SystemProgram.transfert({
-                    fromPubkey: window.solana.publicKey,
-                    toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
-                    lamports: window.solana.LAMPORTS_PER_SOL / 100,
-                }));
-            // transaction.programId = 11111111111111111111111111111111;
-            transaction.feePayer = window.solana.publicKey;
-            transaction.recentBlockhash = await recentBlockHash;
-            const signedTransaction = await window.solana.signTransaction(transaction);
-            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+            async function sendSol() {
 
-        };
-    })();
+                var transaction = new solanaWeb3.Transaction().add(
+                    solanaWeb3.SystemProgram.transfer({
+                        fromPubkey: window.solana.publicKey,
+                        toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
+                        lamports: solanaWeb3.LAMPORTS_PER_SOL //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+                    }),
+                );
+
+                // Setting the variables for the transaction
+                transaction.feePayer = await window.solana.publicKey;
+                let blockhashObj = await connection.getRecentBlockhash();
+                transaction.recentBlockhash = await blockhashObj.blockhash;
+
+                // Transaction constructor initialized successfully
+                if (transaction) {
+                    console.log("Txn created successfully");
+                }
+
+                // Request creator to sign the transaction (allow the transaction)
+                let signed = await window.solana.signTransaction(transaction);
+                // The signature is generated
+                let signature = await connection.sendRawTransaction(signed.serialize());
+                // Confirm whether the transaction went through or not
+                await connection.confirmTransaction(signature);
+
+                console.log("Signature: ", signature);
+            };
+        })();
     </script>
 
 
