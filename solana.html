@@ -2,8 +2,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <title>My Dapp</title>
-
+    <title>Art Galllery</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <link href="styles.css" type="text/css" rel="stylesheet" />
@@ -18,6 +17,7 @@
     <button class="sendSolButton"> Send SOLANA </button>
     <button class="walletInfoButton">Info wallet</button>
     <button class="signMessageButton">Sign message</button>
+    <button class="mintNftButton">Mint NFT</button>
 
     <!-- <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script> -->
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
@@ -37,7 +37,7 @@
                 }
                 window.open("https://phantom.app/", "_blank");
             };
-           
+
 
             const isPhantomInstalled = window.solana && window.solana.isPhantom;
             // Solflare Provider replace Phantom
@@ -48,17 +48,23 @@
             const sendSolButton = document.querySelector('.sendSolButton');
             const walletInfoButton = document.querySelector('.walletInfoButton');
             const signMessageButton = document.querySelector('.signMessageButton');
-            const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
-
-            document.addEventListener("DOMContentLoaded", function(event) {
-                window.solana.connect()
-                window.solana.on("connect", () => {
-                    console.log("connected!")
-                    showAccount.innerHTML = window.solana.publicKey.toString();
-                });
-            });
+            const mintNftButton = document.querySelector('.mintNftButton');
 
             
+            const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+
+            document.addEventListener("DOMContentLoaded", function (event) {
+                if(connection && isPhantomInstalled == true) 
+                {
+                    window.solana.connect()
+                    window.solana.on("connect", () => {
+                    console.log("connected!")
+                    showAccount.innerHTML = window.solana.publicKey.toString();
+                    });
+                }
+            });
+
+
             connectButton.addEventListener('click', () => {
                 window.solana.connect();
                 console.log(window.solana);
@@ -74,11 +80,12 @@
                 window.solana.on('disconnect', () => console.log("disconnected!"))
                 showAccount.innerHTML = "Disconnected"
             });
+
             sendSolButton.addEventListener('click', () => {
                 sendSol();
             });
-            walletInfoButton.addEventListener('click', () => {
 
+            walletInfoButton.addEventListener('click', () => {
                 console.log(window.solana.publicKey, // wallet's publicKey
                     window.solana.connected, // true or false
                     window.solana.network) // mainnet-beta or testnet)
@@ -88,11 +95,84 @@
 
             });
 
+            mintNftButton.addEventListener('click', () => {
+                // mintNft()
+                console.log("COMING SOON")
+            })
+
             async function singMessage() {
                 const message = `To avoid digital dognappers, sign below to authenticate with Nft Galllery`;
                 const encodedMessage = new TextEncoder().encode(message);
                 const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
             };
+
+            // async function mintNft() {
+            //     var fromWallet = solanaWeb3.Keypair.generate();
+            //     var fromAirdropSignature = await connection.requestAirdrop(
+            //         fromWallet.publicKey,
+            //         solanaWeb3.LAMPORTS_PER_SOL,
+            //     );
+            //     //wait for airdrop confirmation
+            //     await connection.confirmTransaction(fromAirdropSignature);
+            //     let mint = await window.solana.splToken.Token.createMint(
+            //         connection,
+            //         fromWallet,
+            //         fromWallet.publicKey,
+            //         null,
+            //         9,
+            //         splToken.TOKEN_PROGRAM_ID,
+            //     );
+
+            //     //get the token account of the fromWallet Solana address, if it does not exist, create it
+            //     let fromTokenAccount = await mint.getOrCreateAssociatedAccountInfo(
+            //         fromWallet.publicKey,
+            //     );
+
+            //     // Generate a new wallet to receive newly minted token
+            //     var toWallet = window.solana.Keypair.generate();
+
+            //     //get the token account of the toWallet Solana address, if it does not exist, create it
+            //     var toTokenAccount = await mint.getOrCreateAssociatedAccountInfo(
+            //         toWallet.publicKey,
+            //     );
+
+            //     //minting 1 new token to the "fromTokenAccount" account we just returned/created
+            //     await mint.mintTo(
+            //         fromTokenAccount.address, //who it goes to
+            //         fromWallet.publicKey, // minting authority
+            //         [], // multisig
+            //         1000000000, // how many
+            //     );
+
+            //     await mint.setAuthority(
+            //         mint.publicKey,
+            //         null,
+            //         "MintTokens",
+            //         fromWallet.publicKey,
+            //         []
+            //     )
+
+            //     // Add token transfer instructions to transaction
+            //     var transaction = new solanaWeb3.Transaction().add(
+            //         window.solana.splToken.Token.createTransferInstruction(
+            //             splToken.TOKEN_PROGRAM_ID,
+            //             fromTokenAccount.address,
+            //             toTokenAccount.address,
+            //             fromWallet.publicKey,
+            //             [],
+            //             1,
+            //         ),
+            //     );
+
+            //     // Sign transaction, broadcast, and confirm
+            //     var signature = await solanaWeb3.sendAndConfirmTransaction(
+            //         connection,
+            //         transaction,
+            //         [fromWallet],
+            //         { commitment: 'confirmed' },
+            //     );
+            //     console.log('SIGNATURE', signature);
+            // }
 
             async function sendSol() {
 
