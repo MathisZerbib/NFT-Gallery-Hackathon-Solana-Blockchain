@@ -1,0 +1,114 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <title>My Dapp</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <button class="connectButton"> Connect Wallet </button>
+    <h2>Account: <span class="showAccount"></span></h2>
+
+    <button class="disconnectButton"> Disconnect </button>
+    <button class="sendSolButton"> Send SOLANA </button>
+    <button class="walletInfoButton">Info wallet</button>
+    <button class="signMessageButton">Sign message</button>
+
+    <!-- <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script> -->
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+(async () => {
+        const getProvider = () => {
+            if ("solana" in window) {
+                const provider = window.solana;
+                if (provider.isPhantom) {
+                    return provider;
+                }
+            }
+            window.open("https://phantom.app/", "_blank");
+        };
+
+        const isPhantomInstalled = window.solana && window.solana.isPhantom;
+        // const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
+        const connectButton = document.querySelector('.connectButton');
+        const disconnectButton = document.querySelector('.disconnectButton');
+        const showAccount = document.querySelector('.showAccount');
+        const sendSolButton = document.querySelector('.sendSolButton');
+        const walletInfoButton = document.querySelector('.walletInfoButton');
+        const signMessageButton = document.querySelector('.signMessageButton');
+
+        const recentBlockHash = async () => {
+            const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+            const recentBlock = await connection.getRecentBlockhash();
+            console.log("~~~~~~~~~~~~~~~~~NEW BLOCK~~~~~~~~~~~~\n", recentBlock.blockhash);
+            // const keyPair = solanaWeb3.Keypair.generate();
+
+            // console.log("Public Key:", keyPair.publicKey.toString());
+            // console.log("Secret Key:", keyPair.secretKey)
+            return recentBlock.blockhash
+        };
+        connectButton.addEventListener('click', () => {
+            window.solana.connect();
+            console.log(window.solana);
+            window.solana.on("connect", () => {
+                console.log("connected!")
+                showAccount.innerHTML = window.solana.publicKey.toString();
+            });
+        });
+
+
+        disconnectButton.addEventListener('click', () => {
+            window.solana.disconnect();
+            window.solana.on('disconnect', () => console.log("disconnected!"))
+            showAccount.innerHTML = "Disconnected"
+        });
+        sendSolButton.addEventListener('click', () => {
+            sendSol();
+        });
+        walletInfoButton.addEventListener('click', () => {
+
+            console.log(window.solana.publicKey, // wallet's publicKey
+                window.solana.connected, // true or false
+                window.solana.network) // mainnet-beta or testnet)
+        });
+        signMessageButton.addEventListener('click', () => {
+            singMessage();
+
+        });
+
+        async function singMessage() {
+            const message = `To avoid digital dognappers,
+    sign below to authenticate with Nft Galllery`;
+            const encodedMessage = new TextEncoder().encode(message);
+            const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
+        };
+
+        async function sendSol() {
+            const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+            const transaction = new solanaWeb3.Transaction().add(
+                solanaWeb3.SystemProgram.transfert({
+                    fromPubkey: window.solana.publicKey,
+                    toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
+                    lamports: window.solana.LAMPORTS_PER_SOL / 100,
+                }));
+            // transaction.programId = 11111111111111111111111111111111;
+            transaction.feePayer = window.solana.publicKey;
+            transaction.recentBlockhash = await recentBlockHash;
+            const signedTransaction = await window.solana.signTransaction(transaction);
+            const signature = await connection.sendRawTransaction(signedTransaction.serialize());
+
+        };
+    })();
+    </script>
+
+
+</body>

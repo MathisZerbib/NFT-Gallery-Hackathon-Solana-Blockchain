@@ -1,0 +1,1 @@
+while sleep 6; do echo $(solana airdrop 10 35M37dLuCrqPPpU3aRDGVUqFWFF2cv71888mA3nhLgsn --url https://api.devnet.solana.com); done
