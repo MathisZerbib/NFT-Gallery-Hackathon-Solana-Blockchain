@@ -1,210 +1,230 @@
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <title>Art Galllery</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link href="styles.css" type="text/css" rel="stylesheet" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <title>Art Galllery</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link href="styles.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
-
-    <button class="connectButton"> Connect Wallet </button>
-    <h2>Account: <span class="showAccount"></span></h2>
-
-    <button class="disconnectButton"> Disconnect </button>
-    <button class="sendSolButton"> Send SOLANA </button>
-    <button class="walletInfoButton">Info wallet</button>
-    <button class="signMessageButton">Sign message</button>
-    <button class="mintNftButton">Mint NFT</button>
-
-    <!-- <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script> -->
-    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-        (async () => {
-
-            const getProvider = () => {
-                if ("solana" in window) {
-                    const provider = window.solana;
-                    if (provider.isPhantom) {
-                        return provider;
-                    }
-                }
-                window.open("https://phantom.app/", "_blank");
-            };
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Art Galllery Web3</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
 
-            const isPhantomInstalled = window.solana && window.solana.isPhantom;
-            // Solflare Provider replace Phantom
-            // const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
-            const connectButton = document.querySelector('.connectButton');
-            const disconnectButton = document.querySelector('.disconnectButton');
-            const showAccount = document.querySelector('.showAccount');
-            const sendSolButton = document.querySelector('.sendSolButton');
-            const walletInfoButton = document.querySelector('.walletInfoButton');
-            const signMessageButton = document.querySelector('.signMessageButton');
-            const mintNftButton = document.querySelector('.mintNftButton');
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            
-            const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
 
-            document.addEventListener("DOMContentLoaded", function (event) {
-                if(connection && isPhantomInstalled == true) 
-                {
-                    window.solana.connect()
-                    window.solana.on("connect", () => {
-                    console.log("connected!")
-                    showAccount.innerHTML = window.solana.publicKey.toString();
-                    });
-                }
-            });
+          <li class="nav-item dropdown">
+            <a id="btnGroupDrop1" class="nav-link dropdown-toggle connectButton" href="#" id="navbarDropdown"
+              role="button" 
+               aria-expanded="false">
+              <span class="showAccount"> Connect Wallet </span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item showBalance" href="#"></a></li>
+              <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item disconnectButton" href="#">Disconnect</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <div class="btn-group" role="group">
+            <!-- <button id="btnGroupDrop1" type="button" class="btn btn-primary connectButton">
+              <span class="showAccount"> Connect Wallet </span>
+            </button> -->
+            <!-- <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+              <li><button class="disconnectButton"> Disconnect </button></li>
+            </ul> -->
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="d-flex justify-content-center flex-column container-sm buttonArea d-none">
+    
+  <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket<br/> 0.2 SOL </button>
+  <button class="walletInfoButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Info wallet</button>
+  <button class="signMessageButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Sign message</button>
+
+  </div>
 
 
-            connectButton.addEventListener('click', () => {
-                window.solana.connect();
-                console.log(window.solana);
-                window.solana.on("connect", () => {
-                    console.log("connected!")
-                    showAccount.innerHTML = window.solana.publicKey.toString();
-                });
-            });
+  <!-- <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script> -->
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.1/dist/jdenticon.min.js" async
+        integrity="sha384-l0/0sn63N3mskDgRYJZA6Mogihu0VY3CusdLMiwpJ9LFPklOARUcOiWEIGGmFELx"
+        crossorigin="anonymous">
+</script>
 
+  <script type="text/javascript">
+    (async () => {
+      //  Provider Web3 Phantom Wallet
+      const getProvider = () => {
+        if ("solana" in window) {
+          const provider = window.solana;
+          if (provider.isPhantom) {
+            return provider;
+          }
+        }
+        window.open("https://phantom.app/", "_blank");
+      };
 
-            disconnectButton.addEventListener('click', () => {
-                window.solana.disconnect();
-                window.solana.on('disconnect', () => console.log("disconnected!"))
-                showAccount.innerHTML = "Disconnected"
-            });
+      // Can be replaced by solflare instead of Phantom
+      // const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
+      const isPhantomInstalled = window.solana && window.solana.isPhantom;
 
-            sendSolButton.addEventListener('click', () => {
-                sendSol();
-            });
+      // Initiate selector on buttons 
+      const connectButton = document.querySelector('.connectButton');
+      const disconnectButton = document.querySelector('.disconnectButton');
+      const showAccount = document.querySelector('.showAccount');
+      const sendSolButton = document.querySelector('.sendSolButton');
+      const walletInfoButton = document.querySelector('.walletInfoButton');
+      const signMessageButton = document.querySelector('.signMessageButton');
+      const showBalance = document.querySelector('.showBalance');
+      const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+      const balanceSpan = document.querySelector('.balanceSpan')
+      const buttonArea = document.querySelector('.buttonArea');
 
-            walletInfoButton.addEventListener('click', () => {
-                console.log(window.solana.publicKey, // wallet's publicKey
-                    window.solana.connected, // true or false
-                    window.solana.network) // mainnet-beta or testnet)
-            });
-            signMessageButton.addEventListener('click', () => {
-                singMessage();
+      // Auto connect phantom Wallet on page load 
+      // *******************************************
 
-            });
+      // Connect Wallet Button
+      connectButton.addEventListener('click', () => {
+        connectWallet();
+      });
+      // Disconnect Wallet Button
+      disconnectButton.addEventListener('click', () => {
+        showAccount.innerHTML = `
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="sr-only">Loading...</span>
+            `;
+        window.solana.disconnect();
+        window.solana.on('disconnect', () => console.log("disconnected!"))
+        showAccount.innerHTML = "Connect Wallet";
+        buttonArea.classList.add('d-none');
+      });
+      // Transaction SOL Button
+      sendSolButton.addEventListener('click', () => {
+        sendSol();
+      });
+      // Get info Wallet Log()
+      walletInfoButton.addEventListener('click', () => {
+        console.log(window.solana.publicKey, // wallet's publicKey
+          window.solana.connected, // true or false
+          window.solana.network) // mainnet-beta or testnet)
+        console.log("https://solscan.io/address/" + window.solana.publicKey)
+      });
 
-            mintNftButton.addEventListener('click', () => {
-                // mintNft()
-                console.log("COMING SOON")
-            })
+      // Sign Message Phantom
+      signMessageButton.addEventListener('click', () => {
+        singMessage();
 
-            async function singMessage() {
-                const message = `To avoid digital dognappers, sign below to authenticate with Nft Galllery`;
-                const encodedMessage = new TextEncoder().encode(message);
-                const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
-            };
+      });
+      // Wallet conection Web3            
+      async function connectWallet() {
 
-            // async function mintNft() {
-            //     var fromWallet = solanaWeb3.Keypair.generate();
-            //     var fromAirdropSignature = await connection.requestAirdrop(
-            //         fromWallet.publicKey,
-            //         solanaWeb3.LAMPORTS_PER_SOL,
-            //     );
-            //     //wait for airdrop confirmation
-            //     await connection.confirmTransaction(fromAirdropSignature);
-            //     let mint = await window.solana.splToken.Token.createMint(
-            //         connection,
-            //         fromWallet,
-            //         fromWallet.publicKey,
-            //         null,
-            //         9,
-            //         splToken.TOKEN_PROGRAM_ID,
-            //     );
+        // Auto Trusted 
+        // window.solana.connect({ onlyIfTrusted: true });
+        if (!window.solana.isConnected) {
+          showAccount.innerHTML = `
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="sr-only">Loading...</span>
+            `;
+          window.solana.connect();
+          window.solana.on("connect", () => {
+            console.log("connected!");
+            console.log("AutoProve:", window.solana.autoApprove);
+            getAccountInfo();
+            console.log("isConnect:", window.solana.isConnected);
+            buttonArea.classList.remove('d-none')
+            connectButton.setAttribute("data-bs-toggle", "dropdown");
+          });
+        }
+      }
 
-            //     //get the token account of the fromWallet Solana address, if it does not exist, create it
-            //     let fromTokenAccount = await mint.getOrCreateAssociatedAccountInfo(
-            //         fromWallet.publicKey,
-            //     );
+      async function getAccountInfo() {
+        var pubKey = window.solana.publicKey.toString();
+        let account = await connection.getAccountInfo(window.solana.publicKey);
+        console.log(account);
+        const balance = await connection.getBalance(window.solana.publicKey, "recent");
+        pubKey = pubKey.substring(0, 16) + '..';
+        showAccount.innerHTML = pubKey;
+        showBalance.innerHTML = numberWithCommas(balance) + '<img alt="SOL" class="rounded-circle" style="max-height: 1.5rem;" src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/solana/info/logo.png" class="MuiAvatar-img">'
 
-            //     // Generate a new wallet to receive newly minted token
-            //     var toWallet = window.solana.Keypair.generate();
+      }
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-            //     //get the token account of the toWallet Solana address, if it does not exist, create it
-            //     var toTokenAccount = await mint.getOrCreateAssociatedAccountInfo(
-            //         toWallet.publicKey,
-            //     );
+      }
 
-            //     //minting 1 new token to the "fromTokenAccount" account we just returned/created
-            //     await mint.mintTo(
-            //         fromTokenAccount.address, //who it goes to
-            //         fromWallet.publicKey, // minting authority
-            //         [], // multisig
-            //         1000000000, // how many
-            //     );
+      async function singMessage() {
+        const message = `To avoid digital dognappers, sign below to authenticate with Nft Galllery`;
+        const encodedMessage = new TextEncoder().encode(message);
+        const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
+      };
 
-            //     await mint.setAuthority(
-            //         mint.publicKey,
-            //         null,
-            //         "MintTokens",
-            //         fromWallet.publicKey,
-            //         []
-            //     )
+      const getSolanaPrice = async () => {
+        const response = await fetch(
+          `https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd`,
+          {
+            method: "GET",
+          }
+        );
 
-            //     // Add token transfer instructions to transaction
-            //     var transaction = new solanaWeb3.Transaction().add(
-            //         window.solana.splToken.Token.createTransferInstruction(
-            //             splToken.TOKEN_PROGRAM_ID,
-            //             fromTokenAccount.address,
-            //             toTokenAccount.address,
-            //             fromWallet.publicKey,
-            //             [],
-            //             1,
-            //         ),
-            //     );
+        const data = await response.json();
+        return data.solana.usd;
+      };
+      async function sendSol() {
+        var transaction = new solanaWeb3.Transaction().add(
+          solanaWeb3.SystemProgram.transfer({
+            fromPubkey: window.solana.publicKey,
+            toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
+            lamports: solanaWeb3.LAMPORTS_PER_SOL / 5 //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+          }),
+        );
 
-            //     // Sign transaction, broadcast, and confirm
-            //     var signature = await solanaWeb3.sendAndConfirmTransaction(
-            //         connection,
-            //         transaction,
-            //         [fromWallet],
-            //         { commitment: 'confirmed' },
-            //     );
-            //     console.log('SIGNATURE', signature);
-            // }
+        // Setting the variables for the transaction
+        transaction.feePayer = await window.solana.publicKey;
+        let blockhashObj = await connection.getRecentBlockhash();
+        transaction.recentBlockhash = await blockhashObj.blockhash;
 
-            async function sendSol() {
+        // Transaction constructor initialized successfully
+        if (transaction) {
+          console.log("Txn created successfully");
+        }
 
-                var transaction = new solanaWeb3.Transaction().add(
-                    solanaWeb3.SystemProgram.transfer({
-                        fromPubkey: window.solana.publicKey,
-                        toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
-                        lamports: solanaWeb3.LAMPORTS_PER_SOL //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
-                    }),
-                );
+        // Request creator to sign the transaction (allow the transaction)
+        let signed = await window.solana.signTransaction(transaction);
+        // The signature is generated
+        let signature = await connection.sendRawTransaction(signed.serialize());
+        // Confirm whether the transaction went through or not
+        await connection.confirmTransaction(signature);
 
-                // Setting the variables for the transaction
-                transaction.feePayer = await window.solana.publicKey;
-                let blockhashObj = await connection.getRecentBlockhash();
-                transaction.recentBlockhash = await blockhashObj.blockhash;
-
-                // Transaction constructor initialized successfully
-                if (transaction) {
-                    console.log("Txn created successfully");
-                }
-
-                // Request creator to sign the transaction (allow the transaction)
-                let signed = await window.solana.signTransaction(transaction);
-                // The signature is generated
-                let signature = await connection.sendRawTransaction(signed.serialize());
-                // Confirm whether the transaction went through or not
-                await connection.confirmTransaction(signature);
-
-                console.log("Signature: ", signature);
-            };
-        })();
-    </script>
+        console.log("Signature: ", signature);
+        getAccountInfo();
+        window.location.replace("http://stackoverflow.com");
+      };
+    })();
+  </script>
 
 
 </body>
