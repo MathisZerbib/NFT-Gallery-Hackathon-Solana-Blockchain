@@ -27,8 +27,7 @@
 
           <li class="nav-item dropdown">
             <a id="btnGroupDrop1" class="nav-link dropdown-toggle connectButton" href="#" id="navbarDropdown"
-              role="button" 
-               aria-expanded="false">
+              role="button" aria-expanded="false">
               <span class="showAccount"> Connect Wallet </span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -57,11 +56,29 @@
   </nav>
 
   <div class="d-flex justify-content-center flex-column container-sm buttonArea d-none">
-    
-  <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket<br/> 0.2 SOL </button>
-  <button class="walletInfoButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Info wallet</button>
-  <button class="signMessageButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Sign message</button>
 
+    <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket 0.2 SOL </button>
+    <button class="walletInfoButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Info wallet</button>
+    <button class="signMessageButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Sign message</button>
+
+
+
+    <!-- <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+      <button type="button" class="btn btn-primary" id="toastbtn">Initialize toast</button>
+      <div style="position: absolute; top: 0; right: 0;">
+        <div class="toast" id="toastNotice" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <img src="https://fr.seaicons.com/wp-content/uploads/2015/06/sign-check-icon.png" class="rounded mr-2" alt="...">
+            <strong class="mr-auto">Soland'art</strong>
+            <small class="text-muted"></small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+            <div class="toast-body">
+            See? Just like this.
+          </div>
+        </div> -->
   </div>
 
 
@@ -70,13 +87,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
     crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.1/dist/jdenticon.min.js" async
-        integrity="sha384-l0/0sn63N3mskDgRYJZA6Mogihu0VY3CusdLMiwpJ9LFPklOARUcOiWEIGGmFELx"
-        crossorigin="anonymous">
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.1/dist/jdenticon.min.js" async
+    integrity="sha384-l0/0sn63N3mskDgRYJZA6Mogihu0VY3CusdLMiwpJ9LFPklOARUcOiWEIGGmFELx" crossorigin="anonymous">
+    </script>
 
   <script type="text/javascript">
     (async () => {
+
+
       //  Provider Web3 Phantom Wallet
       const getProvider = () => {
         if ("solana" in window) {
@@ -104,8 +122,15 @@
       const balanceSpan = document.querySelector('.balanceSpan')
       const buttonArea = document.querySelector('.buttonArea');
 
+
       // Auto connect phantom Wallet on page load 
       // *******************************************
+      // Toast Button
+      // document.getElementById("toastbtn").onclick = function() {
+      //   var myAlert =document.getElementById('toastNotice');//select id of toast
+      //     var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+      //     bsAlert.show();//show it
+      // };
 
       // Connect Wallet Button
       connectButton.addEventListener('click', () => {
@@ -113,10 +138,7 @@
       });
       // Disconnect Wallet Button
       disconnectButton.addEventListener('click', () => {
-        showAccount.innerHTML = `
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              <span class="sr-only">Loading...</span>
-            `;
+        setLoading(showAccount);
         window.solana.disconnect();
         window.solana.on('disconnect', () => console.log("disconnected!"))
         showAccount.innerHTML = "Connect Wallet";
@@ -125,7 +147,7 @@
       // Transaction SOL Button
       sendSolButton.addEventListener('click', () => {
         sendSol();
-      });
+      }, { once: true });
       // Get info Wallet Log()
       walletInfoButton.addEventListener('click', () => {
         console.log(window.solana.publicKey, // wallet's publicKey
@@ -139,16 +161,20 @@
         singMessage();
 
       });
+
+      function setLoading(div) {
+        div = div.innerHTML = `
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="sr-only">Loading...</span>
+            `;
+      }
       // Wallet conection Web3            
       async function connectWallet() {
 
         // Auto Trusted 
         // window.solana.connect({ onlyIfTrusted: true });
         if (!window.solana.isConnected) {
-          showAccount.innerHTML = `
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              <span class="sr-only">Loading...</span>
-            `;
+          setLoading(showAccount);
           window.solana.connect();
           window.solana.on("connect", () => {
             console.log("connected!");
@@ -193,35 +219,61 @@
         const data = await response.json();
         return data.solana.usd;
       };
-      async function sendSol() {
-        var transaction = new solanaWeb3.Transaction().add(
-          solanaWeb3.SystemProgram.transfer({
-            fromPubkey: window.solana.publicKey,
-            toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
-            lamports: solanaWeb3.LAMPORTS_PER_SOL / 5 //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
-          }),
-        );
 
-        // Setting the variables for the transaction
-        transaction.feePayer = await window.solana.publicKey;
-        let blockhashObj = await connection.getRecentBlockhash();
-        transaction.recentBlockhash = await blockhashObj.blockhash;
 
-        // Transaction constructor initialized successfully
-        if (transaction) {
-          console.log("Txn created successfully");
-        }
+      async function getPubKey() {
+        return await window.solana.publicKey.toString();
+      }
 
-        // Request creator to sign the transaction (allow the transaction)
-        let signed = await window.solana.signTransaction(transaction);
-        // The signature is generated
-        let signature = await connection.sendRawTransaction(signed.serialize());
-        // Confirm whether the transaction went through or not
-        await connection.confirmTransaction(signature);
-
-        console.log("Signature: ", signature);
-        getAccountInfo();
+      function redirect() {
         window.location.replace("http://stackoverflow.com");
+      }
+
+      async function sendSol() {
+
+        try {
+          setLoading(sendSolButton);
+          var transaction = new solanaWeb3.Transaction().add(
+            solanaWeb3.SystemProgram.transfer({
+              fromPubkey: window.solana.publicKey,
+              toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
+              lamports: solanaWeb3.LAMPORTS_PER_SOL / 5 //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+            }),
+          );
+
+          // Setting the variables for the transaction
+          transaction.feePayer = await window.solana.publicKey;
+          let blockhashObj = await connection.getRecentBlockhash();
+          transaction.recentBlockhash = await blockhashObj.blockhash;
+
+          // Transaction constructor initialized successfully
+          if (transaction) {
+            console.log("Txn created successfully", transaction);
+          }
+
+          // Request creator to sign the transaction (allow the transaction)
+          let signed = await window.solana.signTransaction(transaction);
+          // The signature is generated
+          let signature = await connection.sendRawTransaction(signed.serialize());
+          // Confirm whether the transaction went through or not
+          let confirmed = await connection.confirmTransaction(signature);
+
+          console.log("Signature: ", signature);
+          getAccountInfo();
+
+          if (signature, confirmed) {
+            sendSolButton.innerHTML = "Enter Web3 Gallery"
+            sendSolButton.addEventListener('click', () => {
+        redirect();
+      }, { once: true });
+          }
+        } catch {
+          console.log("EROOOOR")
+          sendSolButton.innerHTML = 'Buy Ticket 0.2 SOL';
+          sendSolButton.addEventListener('click', () => {
+        sendSol();
+      }, { once: true });
+        }
       };
     })();
   </script>
