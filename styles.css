@@ -28,3 +28,16 @@ button {
   } */
 
   
+  .green {
+    background-color: #00FFA3 ;
+  }
+  
+  .blue {
+    background-color: #03E1FF;
+  }
+  .purple {
+    background-color: #DC1FFF ;
+  }
+  .black {
+    background-color: #101921 ;
+  }
