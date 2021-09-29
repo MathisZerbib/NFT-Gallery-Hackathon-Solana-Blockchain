@@ -34,10 +34,10 @@
             <!-- Dropdown menu  -->
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
-                <p class="dropdown-item showBalance disabled"></p>
+                <p class="dropdown-item showBalance"></p>
               </li>
               <li>
-                <p class="dropdown-item buttonNetwork disabled">Network: <span class="networkSpan"></span></p>
+                <p class="dropdown-item buttonNetwork">Network: <span class="networkSpan"></span></p>
               </li>
               <li>
                 <hr class="dropdown-divider">
@@ -75,7 +75,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-              Your transaction ahs been proccessed you can check it at <a class="txScanLink" target="_blank"></a>
+              Your transaction has been proccessed, you can check it at: <a class="txScanLink" target="_blank"></a>
             </div>
           </div>
 
@@ -141,6 +141,15 @@
                 bsAlert.show();//show it
               };
               function toastInfo() {
+                 // Set Timer
+                 var timer = setInterval(function () {
+                      document.getElementById("seconds").innerHTML = pad(++sec % 60);
+                      document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+                    }, 1000);
+
+                    setTimeout(function () {
+                      clearInterval(timer);
+                    }, 11000);
                 var myAlert = document.getElementById('toastNotice');//select id of toast
                 var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
                 bsAlert.show();//show it
@@ -288,15 +297,7 @@
 
                   if (signature, confirmed) {
 
-                    // Set Timer
-                    var timer = setInterval(function () {
-                      document.getElementById("seconds").innerHTML = pad(++sec % 60);
-                      document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
-                    }, 1000);
-
-                    setTimeout(function () {
-                      clearInterval(timer);
-                    }, 11000);
+                   
                     toastInfo();
                     txScanLink.href = "https://solscan.io/account/" + window.solana.publicKey;
                     txScanLink.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
