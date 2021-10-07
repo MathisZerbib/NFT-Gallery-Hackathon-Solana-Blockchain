@@ -19,7 +19,8 @@ body::before {
     width: 100%;
     height: 100%;
     background: linear-gradient(#2d2dff, #ff2f2f);
-    clip-path: circle(25% at right)
+    clip-path: circle(25% at right);
+    z-index: -1;
 }
 
 body::after {
@@ -57,15 +58,7 @@ button {
   button:hover {
     background: #423aa9;
   }
-  
-  /* body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  } */
-
-  
+    
   .green {
     background-color: #00FFA3 ;
   }
