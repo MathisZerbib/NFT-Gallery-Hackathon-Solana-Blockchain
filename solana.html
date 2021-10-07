@@ -12,7 +12,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <!-- Title -->
-      <a class="navbar-brand" href="#">Art Galllery Web3</a>
+      <a class="navbar-brand" href="#">Soland</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -57,15 +57,67 @@
 
   <!-- Main Button -->
   <div class="d-flex justify-content-center flex-column container-sm buttonArea d-none">
+    <div class="row row-cols-1 row-cols-md-3 m-5">
+      <div class="col mb-4">
+        <div class="card">
+          <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+          <div class="card-body text-white">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">DirtyPanda</h5>
+              <p class="font-weight-bold">0.02 ◎</p>
+            </div>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+          <div class="card-body text-white">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">DirtyPanda</h5>
+              <p class="font-weight-bold">0.02 ◎</p>
+            </div>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+          <div class="card-body text-white">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">DirtyPanda</h5>
+              <p class="font-weight-bold">0.02 ◎</p>
+            </div>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+          <div class="card-body text-white">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">DirtyPanda</h5>
+              <p class="font-weight-bold">0.02 ◎</p>
+            </div>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
 
-    <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket 0.2 SOL </button>
-    <button class="signMessageButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Sign message</button>
 
 
     <!-- Toast Successfull Tx  -->
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
       style="min-height: 200px;">
-      <button type="button" class="btn btn-primary" id="toastbtn">Initialize toast</button>
       <div style="position: absolute; bottom: 25px ; right: 25px;">
         <div class="toast" id="toastSuccess" role="alert" aria-live="assertive" aria-atomic="true">
           <div class="toast fade show" id="myToast">
@@ -82,23 +134,21 @@
       </div>
     </div>
 
-          <!-- Toast Error Tx  -->
-          <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
-            style="min-height: 200px;">
-            <div style="position: absolute; bottom: 25px ; right: 25px;">
-              <div class="toast" id="toastError" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast fade show" id="myToast">
-                  <div class="toast-header">
-                    <strong class="me-auto "><i class="bi-gift-fill"></i>Transaction Error !</strong>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                  </div>
-                  <div class="toast-body">
-                    Your transaction has been rejected, you can check it at: <a class="txScanLinkError" target="_blank"></a>
-                  </div>
-                </div>
-
-
-
+    <!-- Toast Error Tx  -->
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+      style="min-height: 200px;">
+      <div style="position: absolute; bottom: 25px ; right: 25px;">
+        <div class="toast" id="toastError" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast fade show" id="myToast">
+            <div class="toast-header">
+              <strong class="me-auto "><i class="bi-gift-fill"></i>Transaction Error !</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Your transaction has been rejected, you can check it at: <a class="txScanLinkError" target="_blank"></a>
+            </div>
+          </div>
+          
                 <!-- <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script> -->
                 <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
@@ -133,7 +183,6 @@
                     const disconnectButton = document.querySelector('.disconnectButton');
                     const showAccount = document.querySelector('.showAccount');
                     const sendSolButton = document.querySelector('.sendSolButton');
-                    const signMessageButton = document.querySelector('.signMessageButton');
                     const showBalance = document.querySelector('.showBalance');
                     const balanceSpan = document.querySelector('.balanceSpan')
                     const buttonArea = document.querySelector('.buttonArea');
@@ -167,21 +216,6 @@
                     sendSolButton.addEventListener('click', () => {
                       sendSol();
                     }, { once: true });
-
-
-
-                    // Sign Message Phantom
-                    signMessageButton.addEventListener('click', () => {
-                      singMessage();
-
-                    });
-
-                    // Toast Button
-                    document.getElementById("toastbtn").onclick = function () {
-                      var myAlert = document.getElementById('toastSuccess');//select id of toast
-                      var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
-                      bsAlert.show();//show it
-                    };
 
                     // Set Timer
                     var sec = 0;
@@ -275,12 +309,6 @@
                       return string.charAt(0).toUpperCase() + string.slice(1);
                     }
                     // Solana Phantom Wallet Functions
-                    async function singMessage() {
-                      const message = `To avoid digital dognappers, sign below to authenticate with Nft Galllery`;
-                      const encodedMessage = new TextEncoder().encode(message);
-                      const signedMessage = await window.solana.signMessage(encodedMessage, "utf8");
-                    };
-
                     const getSolanaPrice = async () => {
                       const response = await fetch(
                         `https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd`,
@@ -348,7 +376,7 @@
                       } catch {
                         console.log("EROOOOR")
                         toastErrorTx();
-                        sendSolButton.innerHTML = 'Buy Ticket 0.2 SOL';
+                        sendSolButton.innerHTML = 'Enter Gallery';
                         sendSolButton.addEventListener('click', () => {
                           sendSol();
                         }, { once: true });

@@ -72,3 +72,9 @@ button {
   .black {
     background-color: #101921 ;
   }
+  .card {
+    background-color: rgba(40, 45, 77, 0.55);
+  }
+  .card-body {
+    color: white;
+  }
