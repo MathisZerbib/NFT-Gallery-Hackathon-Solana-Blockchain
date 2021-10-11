@@ -37,6 +37,10 @@ body::after {
   z-index: -1;
 }
 
+h1 {
+  color: white;
+}
+
 button {
     font-weight: 600;
     color: white;
@@ -74,7 +78,4 @@ button {
   }
   .card {
     background-color: rgba(40, 45, 77, 0.55);
-  }
-  .card-body {
-    color: white;
   }
