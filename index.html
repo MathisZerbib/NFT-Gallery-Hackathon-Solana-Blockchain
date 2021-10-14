@@ -55,8 +55,12 @@
     </div>
   </nav>
 
-  <div class="mainContainer d-none">
-    <h1 class="text-white text-center m-5 p-2">Hot collections </h1>
+  <div class="mainContainer">
+
+    <h1 class="text-white text-center m-4 p-2">Hot collections </h1>
+    <div class="d-flex justify-content-center m-2">
+      <button class="connectWallet">Connect Your Wallet</button>
+    </div>
     <!-- Main Cards -->
     <div class="d-flex justify-content-center flex-column container-sm">
       <div class="row row-cols-1 row-cols-md-3 m-5">
@@ -276,12 +280,8 @@
               const txScanLinkSuccess = document.querySelector('.txScanLinkSuccess');
               const txScanLinkError = document.querySelector('.txScanLinkError');
               const mintNftButton = document.querySelector('.mintNft');
+              const connectWalletButton = document.querySelector('.connectWallet');
 
-
-              // Auto connect phantom Wallet on page load 
-              window.onload = function (e) {
-                connectWallet();
-              }
 
               // function getHistory(connection, publicKey, options = { limit: 1000 }) {
               //   return connection.getConfirmedSignaturesForAddress2(publicKey, options);
@@ -292,6 +292,10 @@
                 connectWallet();
               });
 
+              connectWalletButton.addEventListener('click', () => {
+                connectWallet();
+              });
+
               // Disconnect Wallet Button
               disconnectButton.addEventListener('click', () => {
                 setLoading(showAccount);
@@ -299,7 +303,8 @@
                 window.solana.on('disconnect', () => console.log("disconnected!"))
                 showAccount.innerHTML = "Connect Wallet";
                 showBalance.innerHTML = "";
-                mainContainer.classList.add('d-none');
+                connectWalletButton.classList.remove('d-none');
+
               });
 
               // Transaction SOL Button
@@ -356,24 +361,27 @@
               async function connectWallet() {
                 // Auto Trusted 
                 // window.solana.connect({ onlyIfTrusted: true });
-
-                if (!window.solana.isConnected) {
-                  setLoading(showAccount);
-                  window.solana.connect();
-                  window.solana.on("connect", () => {
-                    console.log("connected To:", connection._rpcEndpoint);
-                    console.log("SolScan :", "https://solscan.io/address/" + window.solana.publicKey)
-                    console.log("AutoProve:", window.solana.autoApprove);
-                    getAccountInfo();
-                    console.log("isConnect:", window.solana.isConnected);
-                    mainContainer.classList.remove('d-none')
-                    connectButton.setAttribute("data-bs-toggle", "dropdown");
-                  });
-                  // Check Network 
-                  let network = connection._rpcEndpoint.replace('https://api.', "")
-                  network = network.replace('.solana.com', "")
-                  console.log(network, "NetWork")
-                  networkSpan.innerHTML = capitalizeFirstLetter(network);
+                try {
+                  if (!window.solana.isConnected) {
+                    setLoading(showAccount);
+                    window.solana.connect();
+                    window.solana.on("connect", () => {
+                      console.log("connected To:", connection._rpcEndpoint);
+                      console.log("SolScan :", "https://solscan.io/address/" + window.solana.publicKey)
+                      console.log("AutoProve:", window.solana.autoApprove);
+                      getAccountInfo();
+                      console.log("isConnect:", window.solana.isConnected);
+                      connectButton.setAttribute("data-bs-toggle", "dropdown");
+                      connectWalletButton.classList.add('d-none');
+                    });
+                    // Check Network 
+                    let network = connection._rpcEndpoint.replace('https://api.', "")
+                    network = network.replace('.solana.com', "")
+                    console.log(network, "NetWork")
+                    networkSpan.innerHTML = capitalizeFirstLetter(network);
+                  }
+                } catch (e) {
+                  console.log('error:', e)
                 }
               }
 
@@ -397,7 +405,6 @@
               // Utils Tools
               function numberWithCommas(x) {
                 var formatedNum = x / solanaWeb3.LAMPORTS_PER_SOL;
-                formatedNum = formatedNum.toString().substr(0, 4);
                 return formatedNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
               }
