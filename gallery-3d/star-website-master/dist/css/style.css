@@ -60,6 +60,15 @@ h3 {
 	font-size: 1.1em;
 }
 
+canvas {
+	display: none;
+}
+
+
+canvas.show {
+	display: block;
+}
+
 #loading-screen {
 position: absolute;
 z-index: 2;

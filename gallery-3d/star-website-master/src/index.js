@@ -89,10 +89,12 @@ async function stars_config() {
 
 /****** MAIN ******/
 if ( WEBGL.isWebGLAvailable() === false ) {
-	document.body.appendChild( WEBGL.getWebGLErrorMessage() );
+	document.querySelector('.gallery').appendChild(WEBGL.getWebGLErrorMessage());
 }
 
 var camera, scene, renderer, stats, material, controls, homePage;
+renderer = new THREE.WebGLRenderer({ alpha : true });
+
 var windowHalfX = (window.innerWidth-28) / 2;
 var windowHalfY = (window.innerHeight - 22) / 2;
 var mouse = new THREE.Vector2();
@@ -304,10 +306,8 @@ async function init() {
 	myWaiter();
 
 
-	let container = document.querySelector( 'div.container' );
 	scene = new THREE.Scene();
 	// scene.background = new THREE.Color( 0xff0000 );
-	document.body.appendChild( container );
 	//camera = new THREE.PerspectiveCamera( 40, (window.innerWidth-28) / (window.innerHeight - 22), 2, 2000);
 	camera =  new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 3000 );
 	camera.position.z = 100;
@@ -316,9 +316,15 @@ async function init() {
 	loadingManager = new THREE.LoadingManager();
 	loadProject();
 
+	var _loadingScreen = document.getElementById( 'loading-screen' );
+	_loadingScreen.style.display =  "none"
+
+	var _loadingScreen = document.querySelector( '.container' );
+	_loadingScreen.style.display =  "none"
+
 	loadingManager.onProgress = function(item, progress, result){
-		var _loadingScreen = document.getElementById( 'loading-screen' );
-		_loadingScreen.classList.add( 'fade-out' );
+		console.log("loading: ", item, progress + "/" + result)
+
 	};
 
 	loadingManager.onLoad = function(){
@@ -414,7 +420,6 @@ async function init() {
 	homePage.scene.add(cube_2);
 
 
-	renderer = new THREE.WebGLRenderer({ alpha : true });
 	renderer.setClearColor( 0xffffff, 0);
 	renderer.setSize( (window.innerWidth-28), (window.innerHeight - 22) );
 	document.body.appendChild( renderer.domElement );
@@ -442,14 +447,16 @@ async function init() {
 
 var animate = function () {
 	//Render le loading screen tant que les ressources n'ont pas load
-	if( RESOURCES_LOADED == false || CAN_DISPLAY_SCENE == false){
+	if( (RESOURCES_LOADED == false || CAN_DISPLAY_SCENE == false) && PORTFOLIO === false){
 		requestAnimationFrame(animate);
 		renderer.render(loadingScreen.scene, loadingScreen.camera);
 		return;
 	}
 	else if (PORTFOLIO) {
 		if (SPLASH_SCREEN) {
+			console.log("START")
 			SPLASH_SCREEN = false;
+			loadGallery();
 			splashScreen();
 		}
 		for(var i = 0; config.length !== i; i++)
@@ -654,6 +661,20 @@ animate();
 /*************EVENT*************/
 var last_star = null;
 var last_pos_camera = {};
+
+function loadGallery(){
+	console.log("== LOAD GALLERY")
+	var _loadingScreen = document.querySelector( '.gallery-list' );
+	_loadingScreen.style.display =  "none"
+	_loadingScreen = document.getElementById( 'loading-screen' );
+	_loadingScreen.style.display =  "block"
+	_loadingScreen = document.querySelector( 'canvas' );
+	console.log("canvas: ", _loadingScreen)
+	_loadingScreen.classList.add('show')
+
+	_loadingScreen = document.querySelector( '.container' );
+	_loadingScreen.style.display =  "block"
+}
 
 setInterval(()=>{
 	console.log("position: ",camera.position.x.toFixed(1),camera.position.y.toFixed(1),camera.position.z.toFixed(1), "rotation: ",camera.rotation.x.toFixed(1),camera.rotation.y.toFixed(1),camera.rotation.z.toFixed(1))

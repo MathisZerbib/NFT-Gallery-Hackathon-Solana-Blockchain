@@ -1,0 +1,394 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+  <title>Art Galllery</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <div class="container-fluid">
+      <!-- Title -->
+      <!-- <a class="navbar-brand" href="#">Soland</a> -->
+      <img src="./img/solandLogoFinal.gif" class="img-fluid" alt="Responsive image">
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navigation bar -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a id="btnGroupDrop1" class="nav-link dropdown-toggle connectButton" href="#" id="navbarDropdown"
+              role="button" aria-expanded="false">
+              <span class="showAccount"> Connect Wallet </span>
+            </a>
+            <!-- Dropdown menu  -->
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <p class="dropdown-item showBalance"></p>
+              </li>
+              <li>
+                <p class="dropdown-item buttonNetwork">Network: <span class="networkSpan"></span></p>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item disconnectButton" href="#">Disconnect</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <div class="btn-group" role="group">
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Button -->
+  <div class="d-flex justify-content-center flex-column container-sm buttonArea d-none">
+    <div class="row row-cols-1 row-cols-md-3 m-5">
+      <div class="col mb-4">
+        <div class="card">
+          <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+          <div class="card-body text-white">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">DirtyPanda</h5>
+              <p class="font-weight-bold">0.02 ◎</p>
+            </div>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+          <div class="card-body text-white">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">DirtyPanda</h5>
+              <p class="font-weight-bold">0.02 ◎</p>
+            </div>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+          <div class="card-body text-white">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">DirtyPanda</h5>
+              <p class="font-weight-bold">0.02 ◎</p>
+            </div>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-4">
+        <div class="card">
+          <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+          <div class="card-body text-white">
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">DirtyPanda</h5>
+              <p class="font-weight-bold">0.02 ◎</p>
+            </div>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- Toast Successfull Tx  -->
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+      style="min-height: 200px;">
+      <div style="position: absolute; bottom: 25px ; right: 25px;">
+        <div class="toast" id="toastSuccess" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast fade show" id="myToast">
+            <div class="toast-header">
+              <strong class="me-auto "><i class="bi-gift-fill"></i>Transaction Success !</strong>
+              <small><span id="minutes">00</span>:<span id="seconds">00</span> ago</small>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Your transaction has been proccessed, you can check it at: <a class="txScanLinkSuccess" target="_blank"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Error Tx  -->
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+      style="min-height: 200px;">
+      <div style="position: absolute; bottom: 25px ; right: 25px;">
+        <div class="toast" id="toastError" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast fade show" id="myToast">
+            <div class="toast-header">
+              <strong class="me-auto "><i class="bi-gift-fill"></i>Transaction Error !</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+              Your transaction has been rejected, you can check it at: <a class="txScanLinkError" target="_blank"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+                <!-- <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script> -->
+                <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+                  integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+                  crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.1/dist/jdenticon.min.js" async
+                  integrity="sha384-l0/0sn63N3mskDgRYJZA6Mogihu0VY3CusdLMiwpJ9LFPklOARUcOiWEIGGmFELx"
+                  crossorigin="anonymous">
+                  </script>
+
+                <script type="text/javascript">
+                  (async () => {
+
+                    //  Provider Web3 Phantom Wallet
+                    const getProvider = () => {
+                      if ("solana" in window) {
+                        const provider = window.solana;
+                        if (provider.isPhantom) {
+                          return provider;
+                        }
+                      }
+                      window.open("https://phantom.app/", "_blank");
+                    };
+
+                    // Can be replaced by solflare instead of Phantom
+                    // const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
+                    const isPhantomInstalled = window.solana && window.solana.isPhantom;
+                    const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+
+                    // Initiate selector on buttons
+                    const connectButton = document.querySelector('.connectButton');
+                    const disconnectButton = document.querySelector('.disconnectButton');
+                    const showAccount = document.querySelector('.showAccount');
+                    const sendSolButton = document.querySelector('.sendSolButton');
+                    const showBalance = document.querySelector('.showBalance');
+                    const balanceSpan = document.querySelector('.balanceSpan')
+                    const buttonArea = document.querySelector('.buttonArea');
+                    const buttonNetwork = document.querySelector('.buttonNetwork');
+                    const networkSpan = document.querySelector('.networkSpan');
+                    const txScanLinkSuccess = document.querySelector('#txScanLinkSuccess');
+                    const txScanLinkError = document.querySelector('.txScanLinkError');
+                    const mintNftButton = document.querySelector('.mintNft');
+
+
+                    // Auto connect phantom Wallet on page load
+                    window.onload = function (e) {
+                      connectWallet();
+                    }
+
+                    // Connect Wallet Button
+                    connectButton.addEventListener('click', () => {
+                      connectWallet();
+                    });
+
+                    // Disconnect Wallet Button
+                    disconnectButton.addEventListener('click', () => {
+                      setLoading(showAccount);
+                      window.solana.disconnect();
+                      window.solana.on('disconnect', () => console.log("disconnected!"))
+                      showAccount.innerHTML = "Connect Wallet";
+                      buttonArea.classList.add('d-none');
+                    });
+
+                    // Transaction SOL Button
+                    sendSolButton.addEventListener('click', () => {
+                      sendSol();
+                    }, { once: true });
+
+                    // Set Timer
+                    var sec = 0;
+                    function pad(val) {
+                      return val > 9 ? val : "0" + val;
+                    }
+
+
+                    // Toast valid Tx
+                    function toastSuccessTx() {
+                      // Set Timer
+                      var timer = setInterval(function () {
+                        document.getElementById("seconds").innerHTML = pad(++sec % 60);
+                        document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+                      }, 1000);
+
+                      setTimeout(function () {
+                        clearInterval(timer);
+                      }, 11000);
+
+                      txScanLinkSuccess.href = "https://solscan.io/account/" + window.solana.publicKey;
+                      txScanLinkSuccess.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+                      var succesAlert = document.getElementById('toastSuccess');//select id of toast
+                      var bsSuccess = new bootstrap.Toast(succesAlert);//inizialize it
+                      bsSuccess.show();//show it
+                    };
+
+
+
+                    // Toast error Tx
+                    function toastErrorTx() {
+                      txScanLinkError.href = "https://solscan.io/account/" + window.solana.publicKey;
+                      txScanLinkError.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+                      console.log('Toast Error')
+                      var errorAlert = document.getElementById('toastError');//select id of toast
+                      var bsError = new bootstrap.Toast(errorAlert);//inizialize it
+                      bsError.show();//show it
+                    };
+
+                    // Set Loading
+                    function setLoading(div) {
+                      div = div.innerHTML = `
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="sr-only">Loading...</span>`;
+                    }
+
+                    // Wallet conection Web3
+                    async function connectWallet() {
+                      // Auto Trusted
+                      // window.solana.connect({ onlyIfTrusted: true });
+
+                      if (!window.solana.isConnected) {
+                        setLoading(showAccount);
+                        window.solana.connect();
+                        window.solana.on("connect", () => {
+                          console.log("connected To:", connection._rpcEndpoint);
+                          console.log("SolScan :", "https://solscan.io/address/" + window.solana.publicKey)
+                          console.log("AutoProve:", window.solana.autoApprove);
+                          getAccountInfo();
+                          console.log("isConnect:", window.solana.isConnected);
+                          buttonArea.classList.remove('d-none')
+                          connectButton.setAttribute("data-bs-toggle", "dropdown");
+                        });
+                      }
+
+                      // Check Network
+                      let network = connection._rpcEndpoint.replace('https://api.', "")
+                      network = network.replace('.solana.com', "")
+                      if (connection._rpcEndpoint != 'https://api.testnet.solana.com') {
+                        networkSpan.innerHTML = capitalizeFirstLetter(network);
+                      }
+                    }
+
+                    async function getAccountInfo() {
+                      var pubKey = window.solana.publicKey.toString();
+                      let account = await connection.getAccountInfo(window.solana.publicKey);
+                      console.log(account);
+                      const balance = await connection.getBalance(window.solana.publicKey, "recent");
+                      pubKey = pubKey.substring(0, 16) + '..';
+                      showAccount.innerHTML = pubKey;
+                      showBalance.innerHTML = numberWithCommas(balance) + ' Sol';
+                    }
+
+                    // Utils Tools
+                    function numberWithCommas(x) {
+                      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                    }
+
+                    function capitalizeFirstLetter(string) {
+                      return string.charAt(0).toUpperCase() + string.slice(1);
+                    }
+                    // Solana Phantom Wallet Functions
+                    const getSolanaPrice = async () => {
+                      const response = await fetch(
+                        `https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd`,
+                        {
+                          method: "GET",
+                        }
+                      );
+
+                      const data = await response.json();
+                      return data.solana.usd;
+                    };
+
+
+                    async function getPubKey() {
+                      return await window.solana.publicKey.toString();
+                    }
+
+                    function redirect() {
+                      window.location.replace("http://stackoverflow.com");
+                    }
+
+                    async function sendSol() {
+
+                      try {
+                        setLoading(sendSolButton);
+                        var transaction = new solanaWeb3.Transaction().add(
+                          solanaWeb3.SystemProgram.transfer({
+                            fromPubkey: window.solana.publicKey,
+                            toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
+                            lamports: solanaWeb3.LAMPORTS_PER_SOL / 5 //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+                          }),
+                        );
+
+                        // Setting the variables for the transaction
+                        transaction.feePayer = await window.solana.publicKey;
+                        let blockhashObj = await connection.getRecentBlockhash();
+                        transaction.recentBlockhash = await blockhashObj.blockhash;
+
+                        // Transaction constructor initialized successfully
+                        if (transaction) {
+                          console.log("Txn created successfully", transaction);
+                        }
+
+                        // Request creator to sign the transaction (allow the transaction)
+                        let signed = await window.solana.signTransaction(transaction);
+                        // The signature is generated
+                        let signature = await connection.sendRawTransaction(signed.serialize());
+                        // Confirm whether the transaction went through or not
+                        let confirmed = await connection.confirmTransaction(signature);
+
+                        console.log("Signature: ", signature);
+                        console.log("confirmed: ", confirmed);
+                        getAccountInfo();
+
+                        if (signature, confirmed) {
+
+
+                          toastSuccessTx();
+
+                          sendSolButton.innerHTML = "Enter Web3 Gallery"
+                          sendSolButton.addEventListener('click', () => {
+                            redirect();
+                          }, { once: true });
+                        }
+                      } catch {
+                        console.log("EROOOOR")
+                        toastErrorTx();
+                        sendSolButton.innerHTML = 'Enter Gallery';
+                        sendSolButton.addEventListener('click', () => {
+                          sendSol();
+                        }, { once: true });
+                      }
+                    };
+                  })();
+                </script>
+
+</body>
