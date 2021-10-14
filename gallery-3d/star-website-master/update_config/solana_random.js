@@ -1,6 +1,7 @@
 const fs = require('fs');
 const configFile = require('./config_template');
-const solanaNftList = require('./solana_nft_list').slice(1, 100)
+const collectionName = 'aurory';
+const solanaNftList = require('./solana_nft_list_'+collectionName).slice(1, 100)
 
 class Config {
 
@@ -41,7 +42,7 @@ class Config {
     }
 
     createFile(obj) {
-        fs.writeFile("./src/config_file_solana.js", "let project = " + JSON.stringify(obj, null, 4) + "\nmodule.exports = project;", function(err) {
+        fs.writeFile("./src/config_file_solana_"+collectionName+".js", "let project = " + JSON.stringify(obj, null, 4) + "\nmodule.exports = project;", function(err) {
             if(err) {
                 return console.log(err);
             }
