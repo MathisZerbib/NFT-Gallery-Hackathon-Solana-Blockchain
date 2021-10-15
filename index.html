@@ -71,7 +71,7 @@
             <img src="https://data.solanart.io/img/collections/degenape.png" class="card-img-top" alt="...">
             <div class="card-body text-white">
               <div class="d-flex justify-content-between">
-                <h5 class="card-title">Degen APE</h5>
+                <h5 class="card-title collections">Degen APE</h5>
                 <p class="font-weight-bold">0.02 ◎</p>
               </div>
               <p class="card-text text-secondary">The academy was founded on the principles of friendship making, crayon
@@ -86,7 +86,7 @@
             <img src="https://data.solanart.io/img/collections/solpunks.png" class="card-img-top" alt="...">
             <div class="card-body text-white">
               <div class="d-flex justify-content-between">
-                <h5 class="card-title">SolPunks</h5>
+                <h5 class="card-title collections">SolPunks</h5>
                 <p class="font-weight-bold">0.02 ◎</p>
               </div>
               <p class="card-text text-secondary">SolPunks are NFTs on the Solana blockchain. Each of these 10,000 SolPunks has attributes that make them unique.</p>
@@ -99,7 +99,7 @@
             <img src="https://data.solanart.io/img/collections/aurory.png" class="card-img-top" alt="...">
             <div class="card-body text-white">
               <div class="d-flex justify-content-between">
-                <h5 class="card-title">Aurory Project</h5>
+                <h5 class="card-title collections">Aurory Project</h5>
                 <p class="font-weight-bold">0.02 ◎</p>
               </div>
               <p class="card-text text-secondary">Aurory is a gaming platform based on the play-to-earn mechanism, a PvE/PvP gaming project using NFTs. 10,000 Aurorians, IDO in October.</p>
@@ -114,7 +114,7 @@
             <img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
             <div class="card-body text-white">
               <div class="d-flex justify-content-between">
-                <h5 class="card-title">DirtyPanda</h5>
+                <h5 class="card-title collections">DirtyPanda</h5>
                 <p class="font-weight-bold">0.02 ◎</p>
               </div>
               <p class="card-text text-secondary">Dirtypanda Is A Collection Of 8,000 Lazy Badass Pandas Who Cuss And
@@ -129,7 +129,7 @@
             <img src="https://data.solanart.io/img/collections/frakt.png" class="card-img-top" alt="...">
             <div class="card-body text-white">
               <div class="d-flex justify-content-between">
-                <h5 class="card-title">Frakt</h5>
+                <h5 class="card-title collections">Frakt</h5>
                 <p class="font-weight-bold">0.02 ◎</p>
               </div>
               <p class="card-text text-secondary">Each frakt is one uniquely generated art piece. There are 5 different types of shapes and 4 color schemes and a limited supply of 10,000 frakts</p>
@@ -144,7 +144,7 @@
               alt="...">
             <div class="card-body text-white">
               <div class="d-flex justify-content-between">
-                <h5 class="card-title">Meerkat Millionaires CC</h5>
+                <h5 class="card-title collections">Meerkat Millionaires CC</h5>
                 <p class="font-weight-bold">0.02 ◎</p>
               </div>
               <p class="card-text text-secondary">Meerkat Millionaires Country Club Is A Generative Art NFT Series
@@ -164,7 +164,7 @@
               <img src="https://data.solanart.io/img/collections/boldbadgers.png" class="card-img-top" alt="...">
               <div class="card-body text-white">
                 <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Boldbadgers</h5>
+                  <h5 class="card-title collections">Boldbadgers</h5>
                   <p class="font-weight-bold">0.02 ◎</p>
                 </div>
                 <p class="card-text text-secondary">The Bold Badgers Squad is a collection of 10,000 unique Bold Badgers NFT having built their burrow on the Solana blockchain.</p>
@@ -179,7 +179,7 @@
                 alt="...">
               <div class="card-body text-white">
                 <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Galactic Gecko</h5>
+                  <h5 class="card-title collections">Galactic Gecko</h5>
                   <p class="font-weight-bold">0.02 ◎</p>
                 </div>
                 <p class="card-text text-secondary">Galactic Gecko Space Garage is an NFT Social Adventure Club featuring 10,000 warrior turned space racing geckos. “Sponsor” a Galactic Gecko !</p>
@@ -193,7 +193,7 @@
               <img src="https://data.solanart.io/img/collections/sollamas-gen2.png" class="card-img-top" alt="...">
               <div class="card-body text-white">
                 <div class="d-flex justify-content-between">
-                  <h5 class="card-title">Sollamas</h5>
+                  <h5 class="card-title collections">Sollamas</h5>
                   <p class="font-weight-bold">0.02 ◎</p>
                 </div>
                 <p class="card-text text-secondary">8,888 uniquely generated and collectible llamas with proof of ownership stored on the Solana blockchain. Purchase from Sollama !</p>
@@ -280,10 +280,19 @@
               const mintNftButton = document.querySelector('.mintNft');
               const connectWalletButton = document.querySelector('.connectWallet');
               const toastError = document.querySelector('.toastBody');
-
+              const collections = document.querySelectorAll('.collections');
+              const AllBuyButtons = document.querySelectorAll('.sendSolButton')
               // function getHistory(connection, publicKey, options = { limit: 1000 }) {
               //   return connection.getConfirmedSignaturesForAddress2(publicKey, options);
               // }
+
+              AllBuyButtons.forEach(function (value, i) {
+                value.addEventListener('click', () => {
+                  sendSol(i);
+                },
+                  { once: true })
+              }
+              );
 
               // Connect Wallet Button
               connectButton.addEventListener('click', () => {
@@ -306,9 +315,9 @@
               });
 
               // Transaction SOL Button
-              sendSolButton.addEventListener('click', () => {
-                sendSol();
-              }, { once: true });
+              // sendSolButton.addEventListener('click', () => {
+              //   sendSol();
+              // }, { once: true });
 
               // Set Timer
               var sec = 0;
@@ -435,10 +444,11 @@
               function redirect() {
                 window.location.replace("http://soland-art.com:8081");
               }
-              async function sendSol() {
+              async function sendSol(i) {
+                console.log(i)
                 // const history = await getHistory(connection, window.solana.publicKey);
                 try {
-                  setLoading(sendSolButton);
+                  setLoading(AllBuyButtons[i]);
                   var transaction = new solanaWeb3.Transaction().add(
                     solanaWeb3.SystemProgram.transfer({
                       fromPubkey: window.solana.publicKey,
@@ -456,7 +466,7 @@
                   if (transaction) {
                     console.log("Txn created successfully", transaction);
                   }
-
+                  
                   // Request creator to sign the transaction (allow the transaction)
                   let signed = await window.solana.signTransaction(transaction);
                   // The signature is generated
@@ -477,18 +487,19 @@
                     //   console.log('Verified')
                     // }
                     toastSuccessTx();
-
-                    sendSolButton.innerHTML = "Enter Web3 Gallery"
-                    sendSolButton.addEventListener('click', () => {
+                    console.log("Paid for",collections[i].innerHTML);
+                    AllBuyButtons[i].innerHTML = "Enter Web3 Gallery"
+                    AllBuyButtons[i].addEventListener('click', () => {
                       redirect();
                     }, { once: true });
                   }
                 } catch (error) {
                   console.log(error)
+                  console.log("Unpaid for",collections[i].innerHTML);
                   toastErrorTx();
-                  sendSolButton.innerHTML = 'Buy Ticket';
-                  sendSolButton.addEventListener('click', () => {
-                    sendSol();
+                  AllBuyButtons[i].innerHTML = 'Buy Ticket';
+                  AllBuyButtons[i].addEventListener('click', () => {
+                    sendSol(i);
                   }, { once: true });
                 }
               };
