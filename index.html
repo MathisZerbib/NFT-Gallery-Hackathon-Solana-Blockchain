@@ -6,6 +6,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
   <link href="styles.css" type="text/css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" type="text/css" rel="stylesheet" />
   <link rel="icon" type="image/png" style="border-radius: 5px" sizes="16x16" href="img/SolanaArt-modified.ico">
 </head>
 
@@ -32,7 +33,7 @@
           <li class="nav-item dropdown">
             <a id="btnGroupDrop1" class="nav-link dropdown-toggle connectButton" href="#" id="navbarDropdown"
               role="button" aria-expanded="false">
-              <span class="showAccount m-1"> Connect Wallet </span>
+              <span class="showAccount m-1"> Connect Wallet <i class="fas fa-sign-in-alt"></i> </span>
               <span class="showBalance"></span>
             </a>
             <!-- Dropdown menu  -->
@@ -43,7 +44,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item disconnectButton" href="#">Disconnect</a></li>
+              <li><a class="dropdown-item disconnectButton" href="#"><i class="fas fa-power-off m-2"></i>Disconnect</a></li>
             </ul>
           </li>
         </ul>
@@ -235,7 +236,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-              Your transaction has been rejected, you can check it at: <a class="txScanLinkError" target="_blank"></a>
+              <p class="toastBody" ></p> <a class="txScanLinkError" target="_blank"></a>
             </div>
           </div>
 
@@ -244,9 +245,6 @@
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
             crossorigin="anonymous"></script>
-          <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.1/dist/jdenticon.min.js" async
-            integrity="sha384-l0/0sn63N3mskDgRYJZA6Mogihu0VY3CusdLMiwpJ9LFPklOARUcOiWEIGGmFELx" crossorigin="anonymous">
-            </script>
 
           <script type="text/javascript">
             (async () => {
@@ -281,7 +279,7 @@
               const txScanLinkError = document.querySelector('.txScanLinkError');
               const mintNftButton = document.querySelector('.mintNft');
               const connectWalletButton = document.querySelector('.connectWallet');
-
+              const toastError = document.querySelector('.toastBody');
 
               // function getHistory(connection, publicKey, options = { limit: 1000 }) {
               //   return connection.getConfirmedSignaturesForAddress2(publicKey, options);
@@ -342,8 +340,17 @@
 
               // Toast error Tx 
               function toastErrorTx() {
-                txScanLinkError.href = "https://solscan.io/account/" + window.solana.publicKey;
-                txScanLinkError.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+
+                if (!window.solana.isConnected) {
+                  console.log('Is Connected', window.solana.isConnected)
+                  toastError.innerHTML = "Please Connect Your Phantom Wallet !";
+                }else {
+                  toastError.innerHTML = "Your transaction has been rejected, you can check it at:"
+                  txScanLinkError.href = "https://solscan.io/account/" + window.solana.publicKey;
+                  txScanLinkError.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+                }
+                console.log(window.solana.isConnected,'Hello')
+
                 console.log('Toast Error')
                 var errorAlert = document.getElementById('toastError');//select id of toast
                 var bsError = new bootstrap.Toast(errorAlert);//inizialize it
@@ -426,7 +433,7 @@
               };
 
               function redirect() {
-                window.location.replace("http://localhost:8081");
+                window.location.replace("http://soland-art.com:8081");
               }
               async function sendSol() {
                 // const history = await getHistory(connection, window.solana.publicKey);
