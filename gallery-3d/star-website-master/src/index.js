@@ -599,7 +599,7 @@ function render() {
 var animation = false;
 
 function splashScreen() {
-	document.getElementById('music').play();
+	// document.getElementById('music').play();
 	var _header = document.getElementById('header');
 	_header.classList.remove('hide');
 
@@ -609,7 +609,7 @@ function splashScreen() {
 	var from = {
 		x: camera.position.x,
 		y: camera.position.y,
-		z: -100
+		z: -50
 	};
 
 	var index = config.length - 1 - Math.floor(Math.random() * 5);
@@ -617,6 +617,9 @@ function splashScreen() {
 
 	var object = scene.getObjectByName( !firstObject.isVideo ? firstObject.id.toString() : 'v-' + firstObject.id.toString(), true);
 	last_star = object;
+
+	const pos = object.position.clone();
+	camera.lookAt(pos);
 
 	if(object && object.position)
 		controls.target = object.position.clone();
@@ -628,17 +631,20 @@ function splashScreen() {
 	last_pos_camera.x = 0.0;
 	last_pos_camera.y = 0.0;
 	last_pos_camera.z = 130.0;
+	camera.position.set(to.x, to.y, to.z);
+
 	ctrl_fly();
 	var tween = new TWEEN.Tween(from)
-		.to(to, 6000)
+		.to(to, 1000)
 		.easing(TWEEN.Easing.Linear.None)
 		.onUpdate(function () {
 			camera.position.set(this.x, this.y, this.z);
+			camera.lookAt(pos);
 		})
 		.onComplete(function () {
 			max_distance = 100.0;
 			//Go to random tableau
-			/*camera.lookAt();*/
+
 			//ctrl_trackball();
 			if (config_project.config.go_to_random_tableau) {
 				animation = false;
@@ -651,7 +657,7 @@ function splashScreen() {
 				//onDocumentClick();
 			}
 		})
-		.start();
+	    .start();
 }
 
 stars_config();
@@ -724,7 +730,7 @@ function onDocumentClick() {
 		console.log("start", camera.position, camera.rotation);
 
 		var tween = new TWEEN.Tween(from)
-			.to(to, 0)
+			.to(to, 2000)
 			.easing(TWEEN.Easing.Linear.None)
 			.onUpdate(function () {
 				camera.position.set(this.x, this.y, this.z);

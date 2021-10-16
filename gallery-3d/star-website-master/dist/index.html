@@ -61,147 +61,244 @@
 </div>
 
 <div class="gallery">
-<nav class="navbar navbar-expand-lg navbar-dark bg-black">
-	<div class="container-fluid">
-		<!-- Title -->
-		<!-- <a class="navbar-brand" href="#">Soland</a> -->
-		<img src="./img/solandLogoFinal.gif" class="img-fluid" alt="Responsive image">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+		<div class="container-fluid">
+			<!-- Title -->
+			<!-- <a class="navbar-brand" href="#">Soland</a> -->
+			<img src="./img/solandLogoFinal.gif" class="img-fluid" alt="Responsive image">
 
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-		<!-- Navigation bar -->
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<!-- Navigation bar -->
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
-				</li>
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
 
-				<li class="nav-item dropdown">
-					<a id="btnGroupDrop1" class="nav-link dropdown-toggle connectButton" href="#" id="navbarDropdown"
-					   role="button" aria-expanded="false">
-						<span class="showAccount"> Connect Wallet </span>
-					</a>
-					<!-- Dropdown menu  -->
-					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<li>
-							<p class="dropdown-item showBalance"></p>
-						</li>
-						<li>
-							<p class="dropdown-item buttonNetwork">Network: <span class="networkSpan"></span></p>
-						</li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-						<li><a class="dropdown-item disconnectButton" href="#">Disconnect</a></li>
-					</ul>
-				</li>
-			</ul>
-			<form class="d-flex">
-				<div class="btn-group" role="group">
-				</div>
-
-			</form>
+					<li class="nav-item dropdown">
+						<a id="btnGroupDrop1" class="nav-link dropdown-toggle connectButton" href="#" id="navbarDropdown"
+						   role="button" aria-expanded="false">
+							<span class="showAccount m-1"> Connect Wallet <i class="fas fa-sign-in-alt"></i> </span>
+							<span class="showBalance"></span>
+						</a>
+						<!-- Dropdown menu  -->
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li>
+								<p class="dropdown-item buttonNetwork">Network: <span class="networkSpan"></span></p>
+							</li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item disconnectButton" href="#"><i
+									class="fas fa-power-off m-2"></i>Disconnect</a></li>
+						</ul>
+					</li>
+				</ul>
+				<form class="d-flex">
+					<div class="btn-group" role="group">
+					</div>
+				</form>
+			</div>
 		</div>
-	</div>
-</nav>
+	</nav>
+
 
 <!-- Main Button -->
 	<div class="gallery-list">
-		<div class="d-flex justify-content-center flex-column container-sm buttonArea d-none">
+
+
+
+		<h1 class="text-white text-center m-4 p-2">Hot collections </h1>
+		<div class="d-flex justify-content-center m-2">
+			<button class="connectWallet">Connect Your Wallet</button>
+		</div>
+
+		<div class="d-flex justify-content-center flex-column container-sm">
 			<div class="row row-cols-1 row-cols-md-3 m-5">
+
 				<div class="col mb-4">
-					<div class="card">
-						<img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+					<div class="card border-0 m-2 p-2">
+						<img src="https://data.solanart.io/img/collections/degenape.png" class="card-img-top" alt="...">
 						<div class="card-body text-white">
 							<div class="d-flex justify-content-between">
-								<h5 class="card-title">DirtyPanda</h5>
-								<p class="font-weight-bold">0.02 ◎</p>
+								<h5 class="card-title collections">Degen APE</h5>
+								<p class="font-weight-bold priceInSol">0.45 ◎</p>
 							</div>
-							<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-4">
-					<div class="card">
-						<img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
-						<div class="card-body text-white">
-							<div class="d-flex justify-content-between">
-								<h5 class="card-title">DirtyPanda</h5>
-								<p class="font-weight-bold">0.02 ◎</p>
-							</div>
-							<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-4">
-					<div class="card">
-						<img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
-						<div class="card-body text-white">
-							<div class="d-flex justify-content-between">
-								<h5 class="card-title">DirtyPanda</h5>
-								<p class="font-weight-bold">0.02 ◎</p>
-							</div>
-							<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
-						</div>
-					</div>
-				</div>
-				<div class="col mb-4">
-					<div class="card">
-						<img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
-						<div class="card-body text-white">
-							<div class="d-flex justify-content-between">
-								<h5 class="card-title">DirtyPanda</h5>
-								<p class="font-weight-bold">0.02 ◎</p>
-							</div>
-							<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Enter Gallery </button>
+							<p class="card-text text-secondary">The academy was founded on the principles of friendship making,
+								crayon
+								eating and absolute, unregulated, deplorable, degenerate behaviour.</p>
+							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
 						</div>
 					</div>
 				</div>
 
+				<div class="col mb-4">
+					<div class="card border-0 m-2 p-2">
+						<img src="https://data.solanart.io/img/collections/solpunks.png" class="card-img-top" alt="...">
+						<div class="card-body text-white">
+							<div class="d-flex justify-content-between">
+								<h5 class="card-title collections">SolPunks</h5>
+								<p class="font-weight-bold priceInSol">0.45 ◎</p>
+							</div>
+							<p class="card-text text-secondary">SolPunks are NFTs on the Solana blockchain. Each of these 10,000
+								SolPunks has attributes that make them unique.</p>
+							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
+						</div>
+					</div>
+				</div>
+				<div class="col mb-4">
+					<div class="card border-0 m-2 p-2">
+						<img src="https://data.solanart.io/img/collections/aurory.png" class="card-img-top" alt="...">
+						<div class="card-body text-white">
+							<div class="d-flex justify-content-between">
+								<h5 class="card-title collections">Aurory Project</h5>
+								<p class="font-weight-bold priceInSol">0.35 ◎</p>
+							</div>
+							<p class="card-text text-secondary">Aurory is a gaming platform based on the play-to-earn mechanism, a
+								PvE/PvP gaming project using NFTs. 10,000 Aurorians, IDO in October.</p>
+							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col mb-4">
+					<div class="card border-0 m-2 p-2">
+						<img src="./img/dirtypanda.webp" class="card-img-top" alt="...">
+						<div class="card-body text-white">
+							<div class="d-flex justify-content-between">
+								<h5 class="card-title collections">DirtyPanda</h5>
+								<p class="font-weight-bold priceInSol">0.3 ◎</p>
+							</div>
+							<p class="card-text text-secondary">Dirtypanda Is A Collection Of 8,000 Lazy Badass Pandas Who Cuss And
+								Bitch At Everything. Each Panda Is Unique And They All Eat A Lot!</p>
+							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
+						</div>
+					</div>
+				</div>
+
+				<div class="col mb-4">
+					<div class="card border-0 m-2 p-2">
+						<img src="https://data.solanart.io/img/collections/frakt.png" class="card-img-top" alt="...">
+						<div class="card-body text-white">
+							<div class="d-flex justify-content-between">
+								<h5 class="card-title collections">Frakt</h5>
+								<p class="font-weight-bold priceInSol">0.4 ◎</p>
+							</div>
+							<p class="card-text text-secondary">Each frakt is one uniquely generated art piece. There are 5
+								different types of shapes and 4 color schemes and a limited supply of 10,000 frakts</p>
+							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
+						</div>
+					</div>
+				</div>
+
+				<div class="col mb-4">
+					<div class="card border-0 m-2 p-2">
+						<img src="https://data.solanart.io/img/collections/meerkatmillionairescc.png" class="card-img-top"
+							 alt="...">
+						<div class="card-body text-white">
+							<div class="d-flex justify-content-between">
+								<h5 class="card-title collections">Meerkat Millionaires CC</h5>
+								<p class="font-weight-bold priceInSol">0.4 ◎</p>
+							</div>
+							<p class="card-text text-secondary">Meerkat Millionaires Country Club Is A Generative Art NFT Series
+								Composed Of 9,999 Hand-Drawn Combinations Of Meerkats.</p>
+							<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
+						</div>
+					</div>
+				</div>
 			</div>
 
+			<h1 class="text-white text-center m-5 p-2">Top collections</h1>
 
+			<div class="d-flex justify-content-center flex-column container-sm">
+				<div class="row row-cols-1 row-cols-md-3 m-5">
+					<div class="col mb-4">
+						<div class="card border-0 m-2 p-2">
+							<img src="https://data.solanart.io/img/collections/boldbadgers.png" class="card-img-top" alt="...">
+							<div class="card-body text-white">
+								<div class="d-flex justify-content-between">
+									<h5 class="card-title collections">Boldbadgers</h5>
+									<p class="font-weight-bold priceInSol">0.8 ◎</p>
+								</div>
+								<p class="card-text text-secondary">The Bold Badgers Squad is a collection of 10,000 unique Bold
+									Badgers NFT having built their burrow on the Solana blockchain.</p>
+								<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
+							</div>
+						</div>
+					</div>
 
-			<!-- Toast Successfull Tx  -->
-			<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
-				 style="min-height: 200px;">
-				<div style="position: absolute; bottom: 25px ; right: 25px;">
-					<div class="toast" id="toastSuccess" role="alert" aria-live="assertive" aria-atomic="true">
-						<div class="toast fade show" id="myToast">
-							<div class="toast-header">
-								<strong class="me-auto "><i class="bi-gift-fill"></i>Transaction Success !</strong>
-								<small><span id="minutes">00</span>:<span id="seconds">00</span> ago</small>
-								<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+					<div class="col mb-4">
+						<div class="card border-0 m-2 p-2">
+							<img src="https://data.solanart.io/img/collections/galacticgeckospacegarage.png" class="card-img-top"
+								 alt="...">
+							<div class="card-body text-white">
+								<div class="d-flex justify-content-between">
+									<h5 class="card-title collections">Galactic Gecko</h5>
+									<p class="font-weight-bold priceInSol">1.30 ◎</p>
+								</div>
+								<p class="card-text text-secondary">Galactic Gecko Space Garage is an NFT Social Adventure Club
+									featuring 10,000 warrior turned space racing geckos. “Sponsor” a Galactic Gecko !</p>
+								<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
 							</div>
-							<div class="toast-body">
-								Your transaction has been proccessed, you can check it at: <a class="txScanLinkSuccess" target="_blank"></a>
+						</div>
+					</div>
+
+					<div class="col mb-4">
+						<div class="card border-0 m-2 p-2">
+							<img src="https://data.solanart.io/img/collections/sollamas-gen2.png" class="card-img-top" alt="...">
+							<div class="card-body text-white">
+								<div class="d-flex justify-content-between">
+									<h5 class="card-title collections">Sollamas</h5>
+									<p class="font-weight-bold priceInSol">1.02 ◎</p>
+								</div>
+								<p class="card-text text-secondary">8,888 uniquely generated and collectible llamas with proof of
+									ownership stored on the Solana blockchain. Purchase from Sollama !</p>
+								<button class="sendSolButton btn mr-md-2 mb-md-0 mb-2 btn-outline-primary">Buy Ticket </button>
 							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+			 style="min-height: 200px;">
+			<div style="position: fixed; bottom: 25px ; right: 25px;">
+				<div class="toast" id="toastSuccess" role="alert" aria-live="assertive" aria-atomic="true">
+					<div class="toast fade show" id="myToast">
+						<div class="toast-header">
+							<strong class="me-auto "><i class="bi-gift-fill"></i>Transaction Success !</strong>
+							<small><span id="minutes">00</span>:<span id="seconds">00</span> ago</small>
+							<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+						</div>
+						<div class="toast-body">
+							Your transaction has been proccessed, you can check it at: <a class="txScanLinkSuccess"
+																						  target="_blank"></a>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<!-- Toast Error Tx  -->
-			<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
-				 style="min-height: 200px;">
-				<div style="position: absolute; bottom: 25px ; right: 25px;">
-					<div class="toast" id="toastError" role="alert" aria-live="assertive" aria-atomic="true">
-						<div class="toast fade show" id="myToast">
-							<div class="toast-header">
-								<strong class="me-auto "><i class="bi-gift-fill"></i>Transaction Error !</strong>
-								<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-							</div>
-							<div class="toast-body">
-								Your transaction has been rejected, you can check it at: <a class="txScanLinkError" target="_blank"></a>
-							</div>
+		<!-- Toast Error Tx  -->
+		<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+			 style="min-height: 200px;">
+			<div style="position: fixed; bottom: 25px ; right: 25px;">
+				<div class="toast" id="toastError" role="alert" aria-live="assertive" aria-atomic="true">
+					<div class="toast fade show" id="myToast">
+						<div class="toast-header">
+							<strong class="me-auto "><i class="bi-gift-fill"></i>Transaction Error !</strong>
+							<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+						</div>
+						<div class="toast-body">
+							<p class="toastBody"></p> <a class="txScanLinkError" target="_blank"></a>
 						</div>
 					</div>
 				</div>
@@ -246,21 +343,35 @@
 		const sendSolButton = document.querySelector('.sendSolButton');
 		const showBalance = document.querySelector('.showBalance');
 		const balanceSpan = document.querySelector('.balanceSpan')
-		const buttonArea = document.querySelector('.buttonArea');
+		const mainContainer = document.querySelector('.mainContainer');
 		const buttonNetwork = document.querySelector('.buttonNetwork');
 		const networkSpan = document.querySelector('.networkSpan');
 		const txScanLinkSuccess = document.querySelector('.txScanLinkSuccess');
 		const txScanLinkError = document.querySelector('.txScanLinkError');
 		const mintNftButton = document.querySelector('.mintNft');
+		const connectWalletButton = document.querySelector('.connectWallet');
+		const toastError = document.querySelector('.toastBody');
+		const collections = document.querySelectorAll('.collections');
+		const AllBuyButtons = document.querySelectorAll('.sendSolButton')
+		const allPrices = document.querySelectorAll('.priceInSol');
+		// function getHistory(connection, publicKey, options = { limit: 1000 }) {
+		//   return connection.getConfirmedSignaturesForAddress2(publicKey, options);
+		// }
 
-
-		// Auto connect phantom Wallet on page load
-		window.onload = function (e) {
-			connectWallet();
-		}
+		AllBuyButtons.forEach(function (value, i) {
+					value.addEventListener('click', () => {
+								sendSol(i);
+							},
+							{ once: true })
+				}
+		);
 
 		// Connect Wallet Button
 		connectButton.addEventListener('click', () => {
+			connectWallet();
+		});
+
+		connectWalletButton.addEventListener('click', () => {
 			connectWallet();
 		});
 
@@ -270,13 +381,15 @@
 			window.solana.disconnect();
 			window.solana.on('disconnect', () => console.log("disconnected!"))
 			showAccount.innerHTML = "Connect Wallet";
-			buttonArea.classList.add('d-none');
+			showBalance.innerHTML = "";
+			connectWalletButton.classList.remove('d-none');
+
 		});
 
 		// Transaction SOL Button
-		sendSolButton.addEventListener('click', () => {
-			sendSol();
-		}, { once: true });
+		// sendSolButton.addEventListener('click', () => {
+		//   sendSol();
+		// }, { once: true });
 
 		// Set Timer
 		var sec = 0;
@@ -308,8 +421,15 @@
 
 		// Toast error Tx
 		function toastErrorTx() {
-			txScanLinkError.href = "https://solscan.io/account/" + window.solana.publicKey;
-			txScanLinkError.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+
+			if (!window.solana.isConnected) {
+				toastError.innerHTML = "Please Connect Your Phantom Wallet !";
+			} else {
+				toastError.innerHTML = "Your transaction has been rejected, you can check it at:"
+				txScanLinkError.href = "https://solscan.io/account/" + window.solana.publicKey;
+				txScanLinkError.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+			}
+
 			console.log('Toast Error')
 			var errorAlert = document.getElementById('toastError');//select id of toast
 			var bsError = new bootstrap.Toast(errorAlert);//inizialize it
@@ -327,42 +447,51 @@
 		async function connectWallet() {
 			// Auto Trusted
 			// window.solana.connect({ onlyIfTrusted: true });
-
-			if (!window.solana.isConnected) {
-				setLoading(showAccount);
-				window.solana.connect();
-				window.solana.on("connect", () => {
-					console.log("connected To:", connection._rpcEndpoint);
-					console.log("SolScan :", "https://solscan.io/address/" + window.solana.publicKey)
-					console.log("AutoProve:", window.solana.autoApprove);
-					getAccountInfo();
-					console.log("isConnect:", window.solana.isConnected);
-					buttonArea.classList.remove('d-none')
-					connectButton.setAttribute("data-bs-toggle", "dropdown");
-				});
-			}
-
-			// Check Network
-			let network = connection._rpcEndpoint.replace('https://api.', "")
-			network = network.replace('.solana.com', "")
-			if (connection._rpcEndpoint != 'https://api.testnet.solana.com') {
-				networkSpan.innerHTML = capitalizeFirstLetter(network);
+			try {
+				if (!window.solana.isConnected) {
+					setLoading(showAccount);
+					window.solana.connect();
+					window.solana.on("connect", () => {
+						console.log("connected To:", connection._rpcEndpoint);
+						console.log("SolScan :", "https://solscan.io/address/" + window.solana.publicKey)
+						console.log("AutoProve:", window.solana.autoApprove);
+						getAccountInfo();
+						console.log("isConnect:", window.solana.isConnected);
+						connectButton.setAttribute("data-bs-toggle", "dropdown");
+						connectWalletButton.classList.add('d-none');
+					});
+					// Check Network
+					let network = connection._rpcEndpoint.replace('https://api.', "")
+					network = network.replace('.solana.com', "")
+					console.log(network, "NetWork")
+					networkSpan.innerHTML = capitalizeFirstLetter(network);
+				}
+			} catch (e) {
+				console.log('error:', e)
 			}
 		}
 
 		async function getAccountInfo() {
 			var pubKey = window.solana.publicKey.toString();
 			let account = await connection.getAccountInfo(window.solana.publicKey);
-			console.log(account);
 			const balance = await connection.getBalance(window.solana.publicKey, "recent");
-			pubKey = pubKey.substring(0, 16) + '..';
+			pubKey = pubKey.replace(pubKey.substring(4, 40), "...")
 			showAccount.innerHTML = pubKey;
-			showBalance.innerHTML = numberWithCommas(balance) + ' Sol';
+			if ((balance / 1000000000) < 1) {
+				console.log(balance / 1000000000)
+				showBalance.innerHTML = numberWithCommas(balance) + "◎";
+			} else {
+				console.log(balance / 1000000000)
+				showBalance.innerHTML = numberWithCommas(balance).slice(0, -1);
+				showBalance.append("◎")
+			}
+
 		}
 
 		// Utils Tools
 		function numberWithCommas(x) {
-			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			var formatedNum = x / solanaWeb3.LAMPORTS_PER_SOL;
+			return formatedNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 		}
 
@@ -382,24 +511,22 @@
 			return data.solana.usd;
 		};
 
-
-		async function getPubKey() {
-			return await window.solana.publicKey.toString();
-		}
-
 		function redirect() {
-			window.location.replace("http://stackoverflow.com");
+			window.location.replace("http://soland-art.com:8081");
 		}
-
-		async function sendSol() {
-
+		async function sendSol(i) {
+			// const history = await getHistory(connection, window.solana.publicKey);
 			try {
-				setLoading(sendSolButton);
+				var price = allPrices[i].innerHTML;
+				price = price.replace(' ◎', "");
+				var uniquePrice = parseInt(price);
+				console.log('Price is:', uniquePrice)
+				setLoading(AllBuyButtons[i]);
 				var transaction = new solanaWeb3.Transaction().add(
 						solanaWeb3.SystemProgram.transfer({
 							fromPubkey: window.solana.publicKey,
-							toPubkey: "2TBxdpf2CxMghgopFmJT7DQt8YomaKakKtzL212kAKb9",
-							lamports: solanaWeb3.LAMPORTS_PER_SOL / 5 //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+							toPubkey: '8huBZ41MG2fyw7hwwbJ41Uenfn28xhrRTyMCL3R6KtWP',
+							lamports: uniquePrice * solanaWeb3.LAMPORTS_PER_SOL //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
 						}),
 				);
 
@@ -419,7 +546,7 @@
 				let signature = await connection.sendRawTransaction(signed.serialize());
 				// Confirm whether the transaction went through or not
 				let confirmed = await connection.confirmTransaction(signature);
-
+				console.log("Signed", signed)
 				console.log("Signature: ", signature);
 				console.log("confirmed: ", confirmed);
 				getAccountInfo();
@@ -427,25 +554,27 @@
 				if (signature && confirmed) {
 
 
+					// **Idea** check history with old signatures
+					// console.log('Signatures:', history);
+					// if (signature == history[0].signature && history[0].confirmationStatus == "finalized") {
+					//   console.log('Verified')
+					// }
 					toastSuccessTx();
-
-					sendSolButton.innerHTML = "Enter Web3 Gallery"
-					sendSolButton.addEventListener('click', () => {
+					console.log("Paid for", collections[i].innerHTML);
+					AllBuyButtons[i].innerHTML = "Enter Web3 Gallery"
+					AllBuyButtons[i].addEventListener('click', () => {
 						PORTFOLIO = true
 						loadGallery();
-						redirect();
 					}, { once: true });
 				}
-			} catch(e){
-
-				console.log("EROOOOR", e)
+			} catch (error) {
+				console.log(error)
+				console.log("Failed for", collections[i].innerHTML);
 				toastErrorTx();
-				sendSolButton.innerHTML = 'Enter Gallery';
-				sendSolButton.addEventListener('click', () => {
-					sendSol();
+				AllBuyButtons[i].innerHTML = 'Buy Ticket';
+				AllBuyButtons[i].addEventListener('click', () => {
+					sendSol(i);
 				}, { once: true });
-			} finally {
-
 			}
 		};
 	})();

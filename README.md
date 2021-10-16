@@ -8,7 +8,6 @@ Use the package manager [npm](https://pip.pypa.io/en/stable/) to install foobar.
 ```bash
 cd gallery-3d/star-website-master
 npm install
-npm run build
 npm start
 ```
 
