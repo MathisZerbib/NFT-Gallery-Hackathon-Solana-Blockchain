@@ -88,3 +88,9 @@ button {
   .card-body {
     color: white;
   }
+  .card-img-top {
+    width: 100%;
+    height: 9vw;
+    object-fit: cover;
+	  min-height: 200px;
+}
