@@ -59,7 +59,7 @@ button {
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    background: #4e44ce;
+    background: rgb(66, 58, 169);
     border-radius: 6px;
     margin: 10px;
     box-shadow: var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow);
@@ -93,4 +93,30 @@ button {
     height: 9vw;
     object-fit: cover;
 	  min-height: 200px;
+}
+.priceInSol {
+
+  border: none;
+    cursor: default;
+    height: 32px;
+    display: inline-flex;
+    outline: 0;
+    padding: 10px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    align-items: center;
+    font-family: "Circular Std Book", "Helvetica", "Arial", sans-serif;
+    white-space: nowrap;
+    border-radius: 16px;
+    vertical-align: middle;
+    justify-content: center;
+    text-decoration: none;
+    background-color: rgb(66, 58, 169, 0.55 );
+}
+
+.solIcon {
+  margin-left: 5px;
+  padding: 2px;
+  border-radius: 50%;
+  height: inherit;
 }
