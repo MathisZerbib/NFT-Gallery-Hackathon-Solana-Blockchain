@@ -5,7 +5,7 @@ let project = {
         "range_z": 30,
         "popup_speed": 2000,
         "rotation_tableau": false,
-        "go_to_random_tableau": false,
+        "go_to_random_tableau": true,
         "random_position": false,
         "camera_rotate": false,
         "camera_rotate_speed": "0.5",

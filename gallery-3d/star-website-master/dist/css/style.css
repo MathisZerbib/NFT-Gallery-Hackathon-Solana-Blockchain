@@ -1,18 +1,21 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300);
 
 #footer {
+	background-color: rgba(40, 45, 77, 0.55);
 	position: fixed;
 	bottom: 0;
-	width: 97%;
+	width: 100%;
 	text-align: right;
+	padding: 30px 60px;
 /*	background-color: white;*/
 }
 
 audio {
+	display: none;
     margin-right: 10px;
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 60px;
     margin-bottom: 10px;
 }
 

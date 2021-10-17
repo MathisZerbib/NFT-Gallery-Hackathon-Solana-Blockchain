@@ -1,9 +1,10 @@
 const THREE = require('three');
 const TWEEN = require('tween');
 const dat = require('dat.gui');
+var PORTFOLIO =  false;
+var GALLERYNAME = "";
 
-
-const config_project = require('./config_file_solana');
+let config_project = require('./config_file_solana');
 require('three-fly-controls')(THREE);
 var TrackballControls = require('three-trackballcontrols');
 
@@ -52,11 +53,12 @@ function shuffleArray(array) {
 }
 
 async function stars_config() {
+	config = [];
 	var i = 0;
 	var row = 5;
 	var done = 0;
 	config_project.project = shuffleArray(config_project.project);
-
+	console.log("REAL config ==>", config_project)
 	for (project of config_project.project) {
 		template[i % template.length].x += 50;
 		if(i !== 0 && (i % template.length === 0)) {
@@ -253,6 +255,8 @@ async function create_star_p(index) {
 }
 
 async function loadProject() {
+	config_project = require('./config_file_solana_' + GALLERYNAME);
+	await stars_config();
 	for(var i =0; config.length !== i; i++) {
 		if (config[i].isVideo !== true) {
 			create_star(config[i], i);
@@ -262,11 +266,11 @@ async function loadProject() {
 		}
 	}
 
-	for ( var x = 0; x < 1050; x++ ) {
+	for ( var x = 0; x < 500; x++ ) {
 		create_star_p(x + sprites.length)
 	}
 
-	return ;
+	return;
 }
 
 function myWaiter() {
@@ -313,25 +317,12 @@ async function init() {
 	camera.position.z = 100;
 
 	//Load manager
-	loadingManager = new THREE.LoadingManager();
-	loadProject();
 
 	var _loadingScreen = document.getElementById( 'loading-screen' );
+	//_loadingScreen.style.display =  "none"
+
+	var _loadingScreen = document.querySelector( '.container-x' );
 	_loadingScreen.style.display =  "none"
-
-	var _loadingScreen = document.querySelector( '.container' );
-	_loadingScreen.style.display =  "none"
-
-	loadingManager.onProgress = function(item, progress, result){
-		console.log("loading: ", item, progress + "/" + result)
-
-	};
-
-	loadingManager.onLoad = function(){
-		const _loadingGif = document.getElementById( 'loader' );
-		_loadingGif.remove();
-		RESOURCES_LOADED = true;
-	};
 
 	var loader = new THREE.FontLoader();
 	homePage.scene.add(homePage.camera);
@@ -424,6 +415,16 @@ async function init() {
 	renderer.setSize( (window.innerWidth-28), (window.innerHeight - 22) );
 	document.body.appendChild( renderer.domElement );
 
+	loadingManager = new THREE.LoadingManager();
+
+	loadingManager.onProgress = function(item, progress, result){
+		console.log("loading: ", item, progress + "/" + result)
+	};
+
+	loadingManager.onLoad = function(){
+		const _loadingGif = document.getElementById( 'loader' );
+		RESOURCES_LOADED = true;
+	};
 
 	var spacetex = new THREE.TextureLoader(loadingManager).load(config_project.background_image);
 	var spacesphereGeo = new THREE.SphereGeometry(1000,100,100);
@@ -453,12 +454,6 @@ var animate = function () {
 		return;
 	}
 	else if (PORTFOLIO) {
-		if (SPLASH_SCREEN) {
-			console.log("START")
-			SPLASH_SCREEN = false;
-			loadGallery();
-			splashScreen();
-		}
 		for(var i = 0; config.length !== i; i++)
 		{
 			if(config[i].video)
@@ -528,10 +523,8 @@ function render() {
 	//camera.rotation.set(0,0,0);
 
 	let delta = clock.getDelta();
-	spacesphere.rotation.y += 0.0001;
+	controls.update( delta );
 
-	if(!animation) {
-		controls.update( delta );
 		raycaster.setFromCamera(mouse, camera);
 		var childrens = scene.children;
 		let intersects = raycaster.intersectObjects(childrens);
@@ -588,9 +581,7 @@ function render() {
 					document.querySelector("h3").textContent = config[INTERSECTED.name].description;
 				}
 			}
-		} else {
-			INTERSECTED = null;
-		}
+
 	}
 	renderer.render( scene, camera );
 }
@@ -599,13 +590,15 @@ function render() {
 var animation = false;
 
 function splashScreen() {
+
+	ctrl_fly();
 	// document.getElementById('music').play();
 	var _header = document.getElementById('header');
 	_header.classList.remove('hide');
 
 	var _footer = document.getElementById('footer');
 	_footer.classList.remove('hide');
-	document.getElementById( 'loading-screen' ).remove();
+	//document.getElementById( 'loading-screen' ).remove();
 	var from = {
 		x: camera.position.x,
 		y: camera.position.y,
@@ -619,45 +612,32 @@ function splashScreen() {
 	last_star = object;
 
 	const pos = object.position.clone();
-	camera.lookAt(pos);
-
+	//camera.lookAt(pos);
+	console.log("CAMERA rotation: ", camera.rotation);
+	console.log("OBJECT rotation: ", object.rotation);
 	if(object && object.position)
-		controls.target = object.position.clone();
+		//controls.target = object.position.clone();
 	var to = {
 		x: object.position.x,
 		y: object.position.y,
 		z: object.position.z + 8
 	};
-	last_pos_camera.x = 0.0;
-	last_pos_camera.y = 0.0;
-	last_pos_camera.z = 130.0;
-	camera.position.set(to.x, to.y, to.z);
 
-	ctrl_fly();
-	var tween = new TWEEN.Tween(from)
-		.to(to, 1000)
-		.easing(TWEEN.Easing.Linear.None)
-		.onUpdate(function () {
-			camera.position.set(this.x, this.y, this.z);
-			camera.lookAt(pos);
-		})
-		.onComplete(function () {
-			max_distance = 100.0;
-			//Go to random tableau
+	last_pos_camera.x = object.position.x;
+	last_pos_camera.y = object.position.y;
+	last_pos_camera.z = object.position.z + 100 ;
+	camera.rotation.set(0,0,0)
 
-			//ctrl_trackball();
-			if (config_project.config.go_to_random_tableau) {
-				animation = false;
-				//var index = Math.floor(Math.random() * sprites.length)
-				//INTERSECTED = sprites[index]
-				//onDocumentClick();
-			}
-			else {
-				animation = false;
-				//onDocumentClick();
-			}
-		})
-	    .start();
+	camera.position.set(last_pos_camera.x,last_pos_camera.y, last_pos_camera.z)
+
+	max_distance = 100.0;
+
+	if (config_project.config.go_to_random_tableau)
+		animation = false;
+	controls.target.copy(object.position);
+	INTERSECTED = object
+	onDocumentClick(true);
+
 }
 
 stars_config();
@@ -668,18 +648,19 @@ animate();
 var last_star = null;
 var last_pos_camera = {};
 
-function loadGallery(){
-	console.log("== LOAD GALLERY")
+async function loadGallery(){
+
 	var _loadingScreen = document.querySelector( '.gallery-list' );
 	_loadingScreen.style.display =  "none"
 	_loadingScreen = document.getElementById( 'loading-screen' );
-	_loadingScreen.style.display =  "block"
 	_loadingScreen = document.querySelector( 'canvas' );
 	console.log("canvas: ", _loadingScreen)
 	_loadingScreen.classList.add('show')
 
-	_loadingScreen = document.querySelector( '.container' );
+	_loadingScreen = document.querySelector( '.container-x' );
 	_loadingScreen.style.display =  "block"
+	await stars_config()
+	splashScreen();
 }
 
 setInterval(()=>{
@@ -687,17 +668,17 @@ setInterval(()=>{
 },1000);
 
 var camera_rt = undefined;
-function onDocumentClick() {
+function onDocumentClick(start) {
+	let delay = 0;
+	if (start === true) delay = 6000
 	console.log("CLICK", INTERSECTED);
 	if(INTERSECTED && animation === false) {
-		if (INTERSECTED.name == "second_line" || INTERSECTED.name == "test_cube" ) {
-			PORTFOLIO = true;
-		}
+
 		animation = true;
 
 		console.log("goto: ", INTERSECTED.name);
 		var position = INTERSECTED.position.clone();
-		camera.lookAt(position);
+		//camera.lookAt(position);
 		var from = {
 			x: camera.position.x,
 			y: camera.position.y,
@@ -713,7 +694,7 @@ function onDocumentClick() {
 		if(last_star === INTERSECTED) {
 			console.log("back to :", last_pos_camera);
 			to.x = position.x;
-			to.y = position.y + 30;
+			to.y = position.y + 60;
 			to.z = position.z;
 			last_star = null;
 			console.log("come back");
@@ -729,14 +710,17 @@ function onDocumentClick() {
 
 		console.log("start", camera.position, camera.rotation);
 
+		animation = false;
 		var tween = new TWEEN.Tween(from)
-			.to(to, 2000)
+			.to(to, delay)
 			.easing(TWEEN.Easing.Linear.None)
 			.onUpdate(function () {
 				camera.position.set(this.x, this.y, this.z);
+				animation = true;
 			})
 			.onComplete(function () {
 				controls.target.copy(position);
+				camera.rotation.set(0.0, 0.0, 0.0)
 				animation = false;
 				INTERSECTED = null;
 			})
@@ -1899,3 +1883,260 @@ Object.defineProperties( THREE.MapControls.prototype, {
 	}
 
 } );
+
+
+//  Provider Web3 Phantom Wallet
+const getProvider = () => {
+	if ("solana" in window) {
+		const provider = window.solana;
+		if (provider.isPhantom) {
+			return provider;
+		}
+	}
+	window.open("https://phantom.app/", "_blank");
+};
+
+// Can be replaced by solflare instead of Phantom
+// const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
+const isPhantomInstalled = window.solana && window.solana.isPhantom;
+const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+
+// Initiate selector on buttons
+const connectButton = document.querySelector('.connectButton');
+const disconnectButton = document.querySelector('.disconnectButton');
+const showAccount = document.querySelector('.showAccount');
+const sendSolButton = document.querySelector('.sendSolButton');
+const showBalance = document.querySelector('.showBalance');
+const balanceSpan = document.querySelector('.balanceSpan')
+const mainContainer = document.querySelector('.mainContainer');
+const buttonNetwork = document.querySelector('.buttonNetwork');
+const networkSpan = document.querySelector('.networkSpan');
+const txScanLinkSuccess = document.querySelector('.txScanLinkSuccess');
+const txScanLinkError = document.querySelector('.txScanLinkError');
+const mintNftButton = document.querySelector('.mintNft');
+const connectWalletButton = document.querySelector('.connectWallet');
+const toastError = document.querySelector('.toastBody');
+const collections = document.querySelectorAll('.collections');
+const AllBuyButtons = document.querySelectorAll('.sendSolButton')
+const allPrices = document.querySelectorAll('.priceInSol');
+// function getHistory(connection, publicKey, options = { limit: 1000 }) {
+//   return connection.getConfirmedSignaturesForAddress2(publicKey, options);
+// }
+
+AllBuyButtons.forEach(function (value, i) {
+		value.addEventListener('click', () => {
+				sendSol(i);
+			},
+			{ once: true })
+	}
+);
+
+// Connect Wallet Button
+connectButton.addEventListener('click', () => {
+	connectWallet();
+});
+
+connectWalletButton.addEventListener('click', () => {
+	connectWallet();
+});
+
+// Disconnect Wallet Button
+disconnectButton.addEventListener('click', () => {
+	setLoading(showAccount);
+	window.solana.disconnect();
+	window.solana.on('disconnect', () => console.log("disconnected!"))
+	showAccount.innerHTML = "Connect Wallet" +  '<i class="fas fa-sign-in-alt m-1"></i>';
+	showBalance.innerHTML = "";
+	connectWalletButton.classList.remove('d-none');
+
+});
+
+// Set Timer
+var sec = 0;
+function pad(val) {
+	return val > 9 ? val : "0" + val;
+}
+
+
+// Toast valid Tx
+function toastSuccessTx() {
+	// Set Timer
+	var timer = setInterval(function () {
+		document.getElementById("seconds").innerHTML = pad(++sec % 60);
+		document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+	}, 1000);
+
+	setTimeout(function () {
+		clearInterval(timer);
+	}, 11000);
+
+	txScanLinkSuccess.href = "https://solscan.io/account/" + window.solana.publicKey;
+	txScanLinkSuccess.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+	var succesAlert = document.getElementById('toastSuccess');//select id of toast
+	var bsSuccess = new bootstrap.Toast(succesAlert);//inizialize it
+	bsSuccess.show();//show it
+};
+
+
+
+// Toast error Tx
+function toastErrorTx() {
+
+	if (!window.solana.isConnected) {
+		toastError.innerHTML = "Please Connect Your Phantom Wallet !";
+	} else {
+		toastError.innerHTML = "Your transaction has been rejected, you can check it at:"
+		txScanLinkError.href = "https://solscan.io/account/" + window.solana.publicKey;
+		txScanLinkError.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+	}
+
+	console.log('Toast Error')
+	var errorAlert = document.getElementById('toastError');//select id of toast
+	var bsError = new bootstrap.Toast(errorAlert);//inizialize it
+	bsError.show();//show it
+};
+
+// Set Loading
+function setLoading(div) {
+	div = div.innerHTML = `
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              <span class="sr-only">Loading...</span>`;
+}
+
+// Wallet conection Web3
+async function connectWallet() {
+	// Auto Trusted
+	// window.solana.connect({ onlyIfTrusted: true });
+	try {
+		if (!window.solana.isConnected) {
+			setLoading(showAccount);
+			window.solana.connect();
+			window.solana.on("connect", () => {
+				console.log("connected To:", connection._rpcEndpoint);
+				console.log("SolScan :", "https://solscan.io/address/" + window.solana.publicKey)
+				console.log("AutoProve:", window.solana.autoApprove);
+				getAccountInfo();
+				console.log("isConnect:", window.solana.isConnected);
+				connectButton.setAttribute("data-bs-toggle", "dropdown");
+				connectWalletButton.classList.add('d-none');
+			});
+			// Check Network
+			let network = connection._rpcEndpoint.replace('https://api.', "")
+			network = network.replace('.solana.com', "")
+			console.log(network, "NetWork")
+			networkSpan.innerHTML = capitalizeFirstLetter(network);
+		}
+	} catch (e) {
+		console.log('error:', e)
+	}
+}
+
+async function getAccountInfo() {
+	var pubKey = window.solana.publicKey.toString();
+	let account = await connection.getAccountInfo(window.solana.publicKey);
+	const balance = await connection.getBalance(window.solana.publicKey, "recent");
+	pubKey = pubKey.replace(pubKey.substring(4, 40), "...")
+	showAccount.innerHTML = pubKey;
+	if ((balance / 1000000000) < 1) {
+		console.log(balance / 1000000000)
+		showBalance.innerHTML = numberWithCommas(balance) + "◎";
+	} else {
+		console.log(balance / 1000000000)
+		showBalance.innerHTML = numberWithCommas(balance).slice(0, -1);
+		showBalance.append("◎")
+	}
+
+}
+
+// Utils Tools
+function numberWithCommas(x) {
+	var formatedNum = x / solanaWeb3.LAMPORTS_PER_SOL;
+	return formatedNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+}
+
+function capitalizeFirstLetter(string) {
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+// Solana Phantom Wallet Functions
+const getSolanaPrice = async () => {
+	const response = await fetch(
+		`https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd`,
+		{
+			method: "GET",
+		}
+	);
+
+	const data = await response.json();
+	return data.solana.usd;
+};
+
+function redirect() {
+	window.location.replace("http://soland-art.com:8081");
+}
+async function sendSol(i) {
+	const collectionName = collections[i].innerHTML
+	GALLERYNAME = collectionName.toString()
+	// const history = await getHistory(connection, window.solana.publicKey);
+	try {
+		var price = allPrices[i].innerHTML;
+		price = price.replace(' ◎', "");
+		price = price.replace(/<img[^>]*>/g,"");
+		var uniquePrice = parseFloat(price);
+		console.log('parseFloat Price is:', uniquePrice)
+		setLoading(AllBuyButtons[i]);
+		var transaction = new solanaWeb3.Transaction().add(
+			solanaWeb3.SystemProgram.transfer({
+				fromPubkey: window.solana.publicKey,
+				toPubkey: '8huBZ41MG2fyw7hwwbJ41Uenfn28xhrRTyMCL3R6KtWP',
+				lamports: uniquePrice * solanaWeb3.LAMPORTS_PER_SOL //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+			}),
+		);
+
+		// Setting the variables for the transaction
+		transaction.feePayer = await window.solana.publicKey;
+		let blockhashObj = await connection.getRecentBlockhash();
+		transaction.recentBlockhash = await blockhashObj.blockhash;
+
+		// Transaction constructor initialized successfully
+		if (transaction) {
+			console.log("Txn created successfully", transaction);
+		}
+
+		// Request creator to sign the transaction (allow the transaction)
+		await loadProject();
+		let signed = await window.solana.signTransaction(transaction);
+		// The signature is generated
+		let signature = await connection.sendRawTransaction(signed.serialize());
+		// Confirm whether the transaction went through or not
+		let confirmed = await connection.confirmTransaction(signature);
+		console.log("Signed", signed)
+		console.log("Signature: ", signature);
+		console.log("confirmed: ", confirmed);
+		getAccountInfo();
+
+		if (signature && confirmed) {
+
+			// **Idea** check history with old signatures
+			// console.log('Signatures:', history);
+			// if (signature == history[0].signature && history[0].confirmationStatus == "finalized") {
+			//   console.log('Verified')
+			// }
+			toastSuccessTx();
+			console.log("Paid for", collections[i].innerHTML);
+			AllBuyButtons[i].innerHTML = "Enter Web3 Gallery"
+			AllBuyButtons[i].addEventListener('click', async () => {
+				PORTFOLIO = true
+				await loadGallery();
+			}, { once: true });
+		}
+	} catch (error) {
+		console.log(error)
+		console.log("Failed for", collections[i].innerHTML);
+		toastErrorTx();
+		AllBuyButtons[i].innerHTML = 'Buy Ticket';
+		AllBuyButtons[i].addEventListener('click', () => {
+			sendSol(i);
+		}, { once: true });
+	}
+};
