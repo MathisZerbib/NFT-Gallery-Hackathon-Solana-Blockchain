@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>John Doe Website</title>
+	<title>Soland Art</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
@@ -534,8 +534,9 @@
 			try {
 				var price = allPrices[i].innerHTML;
 				price = price.replace(' ◎', "");
-				var uniquePrice = parseInt(price);
-				console.log('Price is:', uniquePrice)
+				price = price.replace(/<img[^>]*>/g,"");
+				var uniquePrice = parseFloat(price);
+				console.log('parseFloat Price is:', uniquePrice)
 				setLoading(AllBuyButtons[i]);
 				var transaction = new solanaWeb3.Transaction().add(
 						solanaWeb3.SystemProgram.transfer({
