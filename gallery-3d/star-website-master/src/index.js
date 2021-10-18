@@ -1902,99 +1902,107 @@ const isPhantomInstalled = window.solana && window.solana.isPhantom;
 const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
 
 // Initiate selector on buttons
-const connectButton = document.querySelector('.connectButton');
-const disconnectButton = document.querySelector('.disconnectButton');
-const showAccount = document.querySelector('.showAccount');
-const sendSolButton = document.querySelector('.sendSolButton');
-const showBalance = document.querySelector('.showBalance');
-const balanceSpan = document.querySelector('.balanceSpan')
-const mainContainer = document.querySelector('.mainContainer');
-const buttonNetwork = document.querySelector('.buttonNetwork');
+// const connectButton = document.querySelector('.connectButton');
+// const disconnectButton = document.querySelector('.disconnectButton');
+// const showAccount = document.querySelector('.showAccount');
+// const sendSolButton = document.querySelector('.sendSolButton');
+// const showBalance = document.querySelector('.showBalance');
+// const balanceSpan = document.querySelector('.balanceSpan')
+// const mainContainer = document.querySelector('.mainContainer');
+// const buttonNetwork = document.querySelector('.buttonNetwork');
 const networkSpan = document.querySelector('.networkSpan');
 const txScanLinkSuccess = document.querySelector('.txScanLinkSuccess');
 const txScanLinkError = document.querySelector('.txScanLinkError');
-const mintNftButton = document.querySelector('.mintNft');
 const connectWalletButton = document.querySelector('.connectWallet');
 const toastError = document.querySelector('.toastBody');
 const collections = document.querySelectorAll('.collections');
 const AllBuyButtons = document.querySelectorAll('.sendSolButton')
-const allPrices = document.querySelectorAll('.priceInSol');
+// const allPrices = document.querySelectorAll('.priceInSol');
 // function getHistory(connection, publicKey, options = { limit: 1000 }) {
 //   return connection.getConfirmedSignaturesForAddress2(publicKey, options);
 // }
 
-AllBuyButtons.forEach(function (value, i) {
-		value.addEventListener('click', () => {
-				sendSol(i);
-			},
+AllBuyButtons.forEach( async function (value, i) {
+		value.addEventListener('click', async function() {
+			const collectionName = collections[i].innerHTML
+	GALLERYNAME = collectionName.toString()
+	setLoading(AllBuyButtons[i]);
+	await loadProject();
+	AllBuyButtons[i].innerHTML = "Enter Web3 Gallery"
+	AllBuyButtons[i].addEventListener('click', async () => {
+		PORTFOLIO = true
+		await loadGallery();
+	}, { once: true });
+
+		},
 			{ once: true })
 	}
 );
 
 // Connect Wallet Button
-connectButton.addEventListener('click', () => {
-	connectWallet();
-});
+// connectButton.addEventListener('click', () => {
+// 	connectWallet();
+// });
 
-connectWalletButton.addEventListener('click', () => {
-	connectWallet();
-});
+// connectWalletButton.addEventListener('click', () => {
+// 	connectWallet();
+// });
 
 // Disconnect Wallet Button
-disconnectButton.addEventListener('click', () => {
-	setLoading(showAccount);
-	window.solana.disconnect();
-	window.solana.on('disconnect', () => console.log("disconnected!"))
-	showAccount.innerHTML = "Connect Wallet" +  '<i class="fas fa-sign-in-alt m-1"></i>';
-	showBalance.innerHTML = "";
-	connectWalletButton.classList.remove('d-none');
+// disconnectButton.addEventListener('click', () => {
+// 	setLoading(showAccount);
+// 	window.solana.disconnect();
+// 	window.solana.on('disconnect', () => console.log("disconnected!"))
+// 	showAccount.innerHTML = "Connect Wallet" +  '<i class="fas fa-sign-in-alt m-1"></i>';
+// 	showBalance.innerHTML = "";
+// 	connectWalletButton.classList.remove('d-none');
 
-});
+// });
 
 // Set Timer
-var sec = 0;
-function pad(val) {
-	return val > 9 ? val : "0" + val;
-}
+// var sec = 0;
+// function pad(val) {
+// 	return val > 9 ? val : "0" + val;
+// }
 
 
-// Toast valid Tx
-function toastSuccessTx() {
-	// Set Timer
-	var timer = setInterval(function () {
-		document.getElementById("seconds").innerHTML = pad(++sec % 60);
-		document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
-	}, 1000);
+// // Toast valid Tx
+// function toastSuccessTx() {
+// 	// Set Timer
+// 	var timer = setInterval(function () {
+// 		document.getElementById("seconds").innerHTML = pad(++sec % 60);
+// 		document.getElementById("minutes").innerHTML = pad(parseInt(sec / 60, 10));
+// 	}, 1000);
 
-	setTimeout(function () {
-		clearInterval(timer);
-	}, 11000);
+// 	setTimeout(function () {
+// 		clearInterval(timer);
+// 	}, 11000);
 
-	txScanLinkSuccess.href = "https://solscan.io/account/" + window.solana.publicKey;
-	txScanLinkSuccess.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
-	var succesAlert = document.getElementById('toastSuccess');//select id of toast
-	var bsSuccess = new bootstrap.Toast(succesAlert);//inizialize it
-	bsSuccess.show();//show it
-};
+// 	txScanLinkSuccess.href = "https://solscan.io/account/" + window.solana.publicKey;
+// 	txScanLinkSuccess.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+// 	var succesAlert = document.getElementById('toastSuccess');//select id of toast
+// 	var bsSuccess = new bootstrap.Toast(succesAlert);//inizialize it
+// 	bsSuccess.show();//show it
+// };
 
 
 
 // Toast error Tx
-function toastErrorTx() {
+// function toastErrorTx() {
 
-	if (!window.solana.isConnected) {
-		toastError.innerHTML = "Please Connect Your Phantom Wallet !";
-	} else {
-		toastError.innerHTML = "Your transaction has been rejected, you can check it at:"
-		txScanLinkError.href = "https://solscan.io/account/" + window.solana.publicKey;
-		txScanLinkError.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
-	}
+// 	if (!window.solana.isConnected) {
+// 		toastError.innerHTML = "Please Connect Your Phantom Wallet !";
+// 	} else {
+// 		toastError.innerHTML = "Your transaction has been rejected, you can check it at:"
+// 		txScanLinkError.href = "https://solscan.io/account/" + window.solana.publicKey;
+// 		txScanLinkError.innerHTML = "https://solscan.io/account/" + window.solana.publicKey;
+// 	}
 
-	console.log('Toast Error')
-	var errorAlert = document.getElementById('toastError');//select id of toast
-	var bsError = new bootstrap.Toast(errorAlert);//inizialize it
-	bsError.show();//show it
-};
+// 	console.log('Toast Error')
+// 	var errorAlert = document.getElementById('toastError');//select id of toast
+// 	var bsError = new bootstrap.Toast(errorAlert);//inizialize it
+// 	bsError.show();//show it
+// };
 
 // Set Loading
 function setLoading(div) {
@@ -2004,139 +2012,135 @@ function setLoading(div) {
 }
 
 // Wallet conection Web3
-async function connectWallet() {
-	// Auto Trusted
-	// window.solana.connect({ onlyIfTrusted: true });
-	try {
-		if (!window.solana.isConnected) {
-			setLoading(showAccount);
-			window.solana.connect();
-			window.solana.on("connect", () => {
-				console.log("connected To:", connection._rpcEndpoint);
-				console.log("SolScan :", "https://solscan.io/address/" + window.solana.publicKey)
-				console.log("AutoProve:", window.solana.autoApprove);
-				getAccountInfo();
-				console.log("isConnect:", window.solana.isConnected);
-				connectButton.setAttribute("data-bs-toggle", "dropdown");
-				connectWalletButton.classList.add('d-none');
-			});
-			// Check Network
-			let network = connection._rpcEndpoint.replace('https://api.', "")
-			network = network.replace('.solana.com', "")
-			console.log(network, "NetWork")
-			networkSpan.innerHTML = capitalizeFirstLetter(network);
-		}
-	} catch (e) {
-		console.log('error:', e)
-	}
-}
+// async function connectWallet() {
+// 	// Auto Trusted
+// 	// window.solana.connect({ onlyIfTrusted: true });
+// 	try {
+// 		if (!window.solana.isConnected) {
+// 			setLoading(showAccount);
+// 			window.solana.connect();
+// 			window.solana.on("connect", () => {
+// 				console.log("connected To:", connection._rpcEndpoint);
+// 				console.log("SolScan :", "https://solscan.io/address/" + window.solana.publicKey)
+// 				console.log("AutoProve:", window.solana.autoApprove);
+// 				getAccountInfo();
+// 				console.log("isConnect:", window.solana.isConnected);
+// 				connectButton.setAttribute("data-bs-toggle", "dropdown");
+// 				connectWalletButton.classList.add('d-none');
+// 			});
+// 			// Check Network
+// 			let network = connection._rpcEndpoint.replace('https://api.', "")
+// 			network = network.replace('.solana.com', "")
+// 			console.log(network, "NetWork")
+// 			networkSpan.innerHTML = capitalizeFirstLetter(network);
+// 		}
+// 	} catch (e) {
+// 		console.log('error:', e)
+// 	}
+// }
 
-async function getAccountInfo() {
-	var pubKey = window.solana.publicKey.toString();
-	let account = await connection.getAccountInfo(window.solana.publicKey);
-	const balance = await connection.getBalance(window.solana.publicKey, "recent");
-	pubKey = pubKey.replace(pubKey.substring(4, 40), "...")
-	showAccount.innerHTML = pubKey;
-	if ((balance / 1000000000) < 1) {
-		console.log(balance / 1000000000)
-		showBalance.innerHTML = numberWithCommas(balance) + "◎";
-	} else {
-		console.log(balance / 1000000000)
-		showBalance.innerHTML = numberWithCommas(balance).slice(0, -1);
-		showBalance.append("◎")
-	}
+// async function getAccountInfo() {
+// 	var pubKey = window.solana.publicKey.toString();
+// 	let account = await connection.getAccountInfo(window.solana.publicKey);
+// 	const balance = await connection.getBalance(window.solana.publicKey, "recent");
+// 	pubKey = pubKey.replace(pubKey.substring(4, 40), "...")
+// 	showAccount.innerHTML = pubKey;
+// 	if ((balance / 1000000000) < 1) {
+// 		console.log(balance / 1000000000)
+// 		showBalance.innerHTML = numberWithCommas(balance) + "◎";
+// 	} else {
+// 		console.log(balance / 1000000000)
+// 		showBalance.innerHTML = numberWithCommas(balance).slice(0, -1);
+// 		showBalance.append("◎")
+// 	}
 
-}
+// }
 
 // Utils Tools
-function numberWithCommas(x) {
-	var formatedNum = x / solanaWeb3.LAMPORTS_PER_SOL;
-	return formatedNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+// function numberWithCommas(x) {
+// 	var formatedNum = x / solanaWeb3.LAMPORTS_PER_SOL;
+// 	return formatedNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-}
+// }
 
-function capitalizeFirstLetter(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1);
-}
-// Solana Phantom Wallet Functions
-const getSolanaPrice = async () => {
-	const response = await fetch(
-		`https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd`,
-		{
-			method: "GET",
-		}
-	);
+// function capitalizeFirstLetter(string) {
+// 	return string.charAt(0).toUpperCase() + string.slice(1);
+// }
+// // Solana Phantom Wallet Functions
+// const getSolanaPrice = async () => {
+// 	const response = await fetch(
+// 		`https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd`,
+// 		{
+// 			method: "GET",
+// 		}
+// 	);
 
-	const data = await response.json();
-	return data.solana.usd;
-};
-
-function redirect() {
-	window.location.replace("http://soland-art.com:8081");
-}
-async function sendSol(i) {
-	const collectionName = collections[i].innerHTML
-	GALLERYNAME = collectionName.toString()
+// 	const data = await response.json();
+// 	return data.solana.usd;
+// };
+// async function sendSol(i) {
+// 	const collectionName = collections[i].innerHTML;
+// 	GALLERYNAME = collectionName.toString();
 	// const history = await getHistory(connection, window.solana.publicKey);
-	try {
-		var price = allPrices[i].innerHTML;
-		price = price.replace(' ◎', "");
-		price = price.replace(/<img[^>]*>/g,"");
-		var uniquePrice = parseFloat(price);
-		console.log('parseFloat Price is:', uniquePrice)
-		setLoading(AllBuyButtons[i]);
-		var transaction = new solanaWeb3.Transaction().add(
-			solanaWeb3.SystemProgram.transfer({
-				fromPubkey: window.solana.publicKey,
-				toPubkey: '8huBZ41MG2fyw7hwwbJ41Uenfn28xhrRTyMCL3R6KtWP',
-				lamports: uniquePrice * solanaWeb3.LAMPORTS_PER_SOL //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
-			}),
-		);
+	// try {
+	// 	var price = allPrices[i].innerHTML;
+	// 	price = price.replace(' ◎', "");
+	// 	price = price.replace(/<img[^>]*>/g,"");
+	// 	var uniquePrice = parseFloat(price);
+	// 	console.log('parseFloat Price is:', uniquePrice)
+		// setLoading(AllBuyButtons[i]);
+		// var transaction = new solanaWeb3.Transaction().add(
+		// 	solanaWeb3.SystemProgram.transfer({
+		// 		fromPubkey: window.solana.publicKey,
+		// 		toPubkey: '8huBZ41MG2fyw7hwwbJ41Uenfn28xhrRTyMCL3R6KtWP',
+		// 		lamports: uniquePrice * solanaWeb3.LAMPORTS_PER_SOL //Investing 1 SOL. Remember 1 Lamport = 10^-9 SOL.
+		// 	}),
+		// );
 
-		// Setting the variables for the transaction
-		transaction.feePayer = await window.solana.publicKey;
-		let blockhashObj = await connection.getRecentBlockhash();
-		transaction.recentBlockhash = await blockhashObj.blockhash;
+		// // Setting the variables for the transaction
+		// transaction.feePayer = await window.solana.publicKey;
+		// let blockhashObj = await connection.getRecentBlockhash();
+		// transaction.recentBlockhash = await blockhashObj.blockhash;
 
-		// Transaction constructor initialized successfully
-		if (transaction) {
-			console.log("Txn created successfully", transaction);
-		}
+		// // Transaction constructor initialized successfully
+		// if (transaction) {
+		// 	console.log("Txn created successfully", transaction);
+		// }
 
 		// Request creator to sign the transaction (allow the transaction)
-		await loadProject();
-		let signed = await window.solana.signTransaction(transaction);
-		// The signature is generated
-		let signature = await connection.sendRawTransaction(signed.serialize());
-		// Confirm whether the transaction went through or not
-		let confirmed = await connection.confirmTransaction(signature);
-		console.log("Signed", signed)
-		console.log("Signature: ", signature);
-		console.log("confirmed: ", confirmed);
-		getAccountInfo();
+		// await loadProject();
+		// let signed = await window.solana.signTransaction(transaction);
+		// // The signature is generated
+		// let signature = await connection.sendRawTransaction(signed.serialize());
+		// // Confirm whether the transaction went through or not
+		// let confirmed = await connection.confirmTransaction(signature);
+		// console.log("Signed", signed)
+		// console.log("Signature: ", signature);
+		// console.log("confirmed: ", confirmed);
+		// getAccountInfo();
 
-		if (signature && confirmed) {
+		// if (signature && confirmed) {
 
 			// **Idea** check history with old signatures
 			// console.log('Signatures:', history);
 			// if (signature == history[0].signature && history[0].confirmationStatus == "finalized") {
 			//   console.log('Verified')
 			// }
-			toastSuccessTx();
-			console.log("Paid for", collections[i].innerHTML);
-			AllBuyButtons[i].innerHTML = "Enter Web3 Gallery"
-			AllBuyButtons[i].addEventListener('click', async () => {
-				PORTFOLIO = true
-				await loadGallery();
-			}, { once: true });
-		}
-	} catch (error) {
-		console.log(error)
-		console.log("Failed for", collections[i].innerHTML);
-		toastErrorTx();
-		AllBuyButtons[i].innerHTML = 'Buy Ticket';
-		AllBuyButtons[i].addEventListener('click', () => {
-			sendSol(i);
-		}, { once: true });
-	}
-};
+			// toastSuccessTx();
+			// console.log("Paid for", collections[i].innerHTML);
+			// AllBuyButtons[i].innerHTML = "Enter Web3 Gallery"
+			// AllBuyButtons[i].addEventListener('click', async () => {
+			// 	PORTFOLIO = true
+			// 	await loadGallery();
+			// }, { once: true });
+	//	}
+	// } catch (error) {
+	// 	console.log(error)
+	// 	console.log("Failed for", collections[i].innerHTML);
+	// 	toastErrorTx();
+	// 	AllBuyButtons[i].innerHTML = 'Buy Ticket';
+	// 	AllBuyButtons[i].addEventListener('click', () => {
+	// 		sendSol(i);
+	// 	}, { once: true });
+	// }
+// };
