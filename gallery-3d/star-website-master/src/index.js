@@ -1899,7 +1899,7 @@ const getProvider = () => {
 // Can be replaced by solflare instead of Phantom
 // const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
 const isPhantomInstalled = window.solana && window.solana.isPhantom;
-const connection = new solanaWeb3.Connection("https://api.devnet.solana.com");
+const connection = new solanaWeb3.Connection("https://api.mainnet-beta.solana.com");
 
 // Initiate selector on buttons
 const connectButton = document.querySelector('.connectButton');
