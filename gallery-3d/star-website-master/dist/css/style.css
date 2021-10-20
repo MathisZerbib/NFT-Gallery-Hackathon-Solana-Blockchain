@@ -160,3 +160,7 @@ animation: spin 1.5s linear infinite;
     height: 9vw;
     object-fit: cover;
 }
+
+.iconHome {
+	cursor: pointer;
+}
