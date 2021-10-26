@@ -161,6 +161,6 @@ animation: spin 1.5s linear infinite;
     object-fit: cover;
 }
 
-.iconHome {
+.homeButton {
 	cursor: pointer;
 }

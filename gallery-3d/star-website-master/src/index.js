@@ -1918,7 +1918,7 @@ const toastError = document.querySelector('.toastBody');
 const collections = document.querySelectorAll('.collections');
 const AllBuyButtons = document.querySelectorAll('.sendSolButton')
 const allPrices = document.querySelectorAll('.priceInSol');
-const IconButtonHome = document.querySelector('.iconHome');
+const homeButton = document.querySelector('.homeButton');
 function getHistory(connection, publicKey, options = { limit: 1000 }) {
   return connection.getConfirmedSignaturesForAddress2(publicKey, options);
 }
@@ -1951,11 +1951,12 @@ AllBuyButtons.forEach( async function (value, i) {
 	}
 );
 // Home Button 
+window.addEventListener('load', function() { 
+	connectWallet(); 
+});
 
-IconButtonHome.addEventListener('click', () => {
-	window.location.reload()
-})
-
+	homeButton.addEventListener('click', () => { 
+		window.location.reload() })
 // Connect Wallet Button
 connectButton.addEventListener('click', () => {
 	connectWallet();
